@@ -1,0 +1,91 @@
+.navigation{
+    background: darkgrey;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
+    margin: 0 auto;
+    top: 8%;
+    left: 40%;
+    transform: translate(-38%, -60%);
+    border-radius: 20px 20px 20px 20px;
+    color: black;
+}
+.menu{
+    display: flex;
+}
+.nav{
+    display: flex;
+    list-style: none;
+}
+.nav select{
+    border: none;
+    background: darkgrey;
+    font-size: 20px;
+    text-decoration: none;
+}
+.nav li a {
+    color: black;
+    text-decoration: none;
+    font-size: 22px;
+    margin: 0 30px 0 0;
+}
+.icon li a {
+    font-size: 22px;
+    margin: 0 20px 0 0;
+}
+.user{
+    width: 28px;
+    height: 28px;
+}
+.welcome{
+    width: 960px;
+    margin: 8% 8% 2%;
+
+}
+.logo{
+    font-size: 40px;
+    font-family: 'Quicksand', sans-serif;
+    color: black;
+    margin-left: 20px;
+}
+.link{
+    transition: .3s;
+}
+.link:hover{
+    color: #517aff;
+}
+.description{
+    top: 35%;
+    left: 6%;
+    width: 40%;
+    position: absolute;
+}
+.description h1 {
+    margin: 0;
+    font-size: 50px;
+    color: black;
+}
+.description p {
+    font-size: 22px;
+    color: black;
+}
+.submit{
+    background: none;
+    border: 2px solid #517aff;
+    text-decoration: none;
+    color: #517aff;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .4s;
+}
+.submit:hover{
+    background: #2121e3;
+    color: white;
+}
+
+

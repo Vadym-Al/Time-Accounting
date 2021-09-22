@@ -1,0 +1,49 @@
+body{
+    background-image: url("img/bg_login_alt.png");
+}
+.d-flex{
+    display: flex;
+    flex: 0 0 100%;
+    width: 100%;
+}
+.flex-wrap{
+    flex-wrap: wrap;
+}
+form {
+    background: white;
+    background-size: contain;
+    /*position: absolute;*/
+    width: calc(100% / 4);
+    height: 40%;
+    padding: 30px;
+    color: black;
+    margin: 3% 3% 0 0;
+    border-radius: 20px 20px 20px 20px;
+}
+form:nth-child(3n){
+    margin-right: 0;
+}
+label, span {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: black;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+button {
+    padding: 10px 0;
+    border-width: 0;
+    display: block;
+    width: 120px;
+    background: #517aff;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    text-transform: uppercase;
+    transition: .4s;
+}
+button:hover {
+    background: #2121e3;
+    color: white;
+}

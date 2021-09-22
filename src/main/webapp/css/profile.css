@@ -1,0 +1,47 @@
+body{
+    background-image: url("img/bg_login_alt.png");
+}
+form {
+    background: white;
+    width: 35%;
+    height: 35%;
+    padding: 30px;
+    margin-left: 8%;
+    margin-top: 12%;
+    color: black;
+}
+main{
+    background: white;
+    position: absolute;
+    display: flex;
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    top: 48%;
+    left: 40%;
+    transform: translate(-38%, -40%);
+    border-radius: 20px 20px 20px 20px;
+    color: black;
+}
+label, span {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: black;
+}
+button {
+    padding: 10px 0;
+    border-width: 0;
+    display: block;
+    width: 120px;
+    background: #517aff;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    text-transform: uppercase;
+    transition: .4s;
+}
+button:hover{
+    background: #2121e3;
+    color: white;
+}

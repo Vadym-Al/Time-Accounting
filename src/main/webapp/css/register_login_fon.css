@@ -1,0 +1,42 @@
+b{
+    color: red;
+}
+form div {
+    margin-bottom: 15px;
+    position: relative;
+    margin-right: 8px;
+}
+label, span {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: black;
+}
+input[type="text"], input[type="email"], input[type="password"] {
+    border-width: 0;
+    outline: none;
+    margin: 0;
+    width: 100%;
+    padding: 10px 15px;
+    background: #e6e6e6;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
+}
+button {
+    padding: 10px 0;
+    border-width: 0;
+    display: block;
+    width: 120px;
+    margin: 25px auto;
+    background: #517aff;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    text-transform: uppercase;
+    transition: .4s;
+}
+button:hover{
+    background: #2121e3;
+    color: white;
+}
