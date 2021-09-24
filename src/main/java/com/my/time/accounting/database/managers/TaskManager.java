@@ -69,7 +69,7 @@ public class TaskManager {
             pstmt.setLong(1, user.getUserId());
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
-                list.add(resultSet.getLong(""));
+                list.add(resultSet.getLong("task_id"));
             }
         } finally {
             close(resultSet);

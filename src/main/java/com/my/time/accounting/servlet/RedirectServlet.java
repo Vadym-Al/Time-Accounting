@@ -2,6 +2,9 @@ package com.my.time.accounting.servlet;
 
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
+import com.my.time.accounting.database.managers.AdminManager;
+import com.my.time.accounting.entity.Administrator;
+import com.my.time.accounting.entity.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -31,6 +34,18 @@ public class RedirectServlet extends HttpServlet {
                     req.setAttribute("activity", dbManager.getAllActivitiesForAdmin((String) session.getAttribute("email")));
                     req.setAttribute("users", dbManager.getAllUsersForAdmin((String) session.getAttribute("email")));
                     getServletContext().getRequestDispatcher("/addTasks.jsp").forward(req, resp);
+                    break;
+                case "Activities":
+                    getServletContext().getRequestDispatcher("/addActivities.jsp").forward(req, resp);
+                    break;
+                case "Teams":
+                    getServletContext().getRequestDispatcher("/addTeams.jsp").forward(req, resp);
+                    break;
+                case "Requests":
+                    User user = dbManager.searchUserByEmail((String) session.getAttribute("email"));
+                    Administrator administrator = dbManager.searchAdminById(user.getAdministratorId());
+                    req.setAttribute("activity", dbManager.getAllActivitiesForAdmin(administrator.getEmail()));
+                    getServletContext().getRequestDispatcher("/addRequests.jsp").forward(req, resp);
                     break;
                 default:
                     getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);

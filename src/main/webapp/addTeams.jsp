@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Add Team</title>
     <link rel="stylesheet" href="css/register_login_fon.css">
     <style type="text/css">
         body{

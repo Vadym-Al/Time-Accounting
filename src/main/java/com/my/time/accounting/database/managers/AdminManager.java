@@ -79,4 +79,22 @@ public class AdminManager {
         }
         return administrator;
     }
+    public static Administrator searchAdminById(Connection connection, long id) throws SQLException {
+        Administrator administrator = new Administrator();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_GET_TASKS_BY_ID);
+
+            pstmt.setLong(1, id);
+            resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                administrator = mapAdministrator(resultSet);
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return administrator;
+    }
 }

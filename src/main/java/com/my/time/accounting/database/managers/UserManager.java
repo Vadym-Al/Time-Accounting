@@ -1,10 +1,9 @@
 package com.my.time.accounting.database.managers;
 
+import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.entity.Administrator;
-import com.my.time.accounting.entity.Task;
 import com.my.time.accounting.entity.User;
 
-import javax.jws.soap.SOAPBinding;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +73,25 @@ public class UserManager {
             pstmt = connection.prepareStatement(SQL_FIND_USER_BY_EMAIL);
 
             pstmt.setString(1, "%" + escapeForLike(email) + "%");
+            resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                user = mapUser(resultSet);
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return user;
+    }
+    public static User searchUserByName(Connection connection, String name) throws SQLException {
+        User user = new User();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_FIND_USER_BY_NAME);
+
+            pstmt.setString(1, "%" + escapeForLike(name) + "%");
             resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {

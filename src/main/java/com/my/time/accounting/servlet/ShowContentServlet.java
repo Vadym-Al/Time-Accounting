@@ -29,26 +29,27 @@ public class ShowContentServlet extends HttpServlet {
                     case "Teams":
                         req.setAttribute(CUSTOMERS, dbManager.getAllTeamsForAdmin((String) session.getAttribute("email")));
                         req.setAttribute("head", "Teams");
-                        req.setAttribute("isTeam", "True");
+                        req.setAttribute("isTeam", true);
                         break;
                     case "Users":
                         req.setAttribute(CUSTOMERS, dbManager.getAllUsersForAdmin((String) session.getAttribute("email")));
                         req.setAttribute("head", "Users");
-                        req.setAttribute("isUser", "True");
+                        req.setAttribute("isUser", true);
                         break;
                     case "Activities":
                         req.setAttribute(CUSTOMERS, dbManager.getAllActivitiesForAdmin((String) session.getAttribute("email")));
                         req.setAttribute("head", "Activities");
-                        req.setAttribute("isActivity", "True");
+                        req.setAttribute("isActivity", true);
                         break;
                     case "Tasks":
                         req.setAttribute(CUSTOMERS, dbManager.getAllTasksForAdmin((String) session.getAttribute("email")));
                         req.setAttribute("head", "Tasks");
-                        req.setAttribute("isTask", "True");
+                        req.setAttribute("isTask", true);
                         break;
                     case "Requests":
                         req.setAttribute(CUSTOMERS, dbManager.getAllRequestsForAdmin((String) session.getAttribute("email")));
                         req.setAttribute("head", "Requests");
+                        req.setAttribute("isRequest", true);
                         break;
                     default:
                         getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
@@ -56,23 +57,23 @@ public class ShowContentServlet extends HttpServlet {
             } catch (ServletException | IOException | DBException e) {
                 logger.error("Error in show admin info", e);
             }
-
         } else {
             try {
                 switch (req.getParameter("page")) {
                     case "Teams":
                         req.setAttribute(CUSTOMERS, dbManager.getAllTeamsForUser((String) session.getAttribute("email")));
                         req.setAttribute("head", "Teams");
-                        req.setAttribute("isTeam", "True");
+                        req.setAttribute("isTeam", true);
                         break;
                     case "Tasks":
                         req.setAttribute(CUSTOMERS, dbManager.getAllTasksForUser((String) session.getAttribute("email")));
                         req.setAttribute("head", "Tasks");
-                        req.setAttribute("isTask", "True");
+                        req.setAttribute("isTask", true);
                         break;
                     case "Requests":
                         req.setAttribute(CUSTOMERS, dbManager.getAllRequestsForUser((String) session.getAttribute("email")));
                         req.setAttribute("head", "Requests");
+                        req.setAttribute("isRequest", true);
                         break;
                     default:
                         getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
@@ -85,7 +86,11 @@ public class ShowContentServlet extends HttpServlet {
         req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
 
         try {
-            getServletContext().getRequestDispatcher("/main.jsp").forward(req, resp);
+            if((boolean) session.getAttribute("isAdmin")){
+                getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
+            }else {
+                getServletContext().getRequestDispatcher("/mainUser.jsp").forward(req, resp);
+            }
         } catch (ServletException | IOException e) {
             logger.error("Error in show", e);
         }

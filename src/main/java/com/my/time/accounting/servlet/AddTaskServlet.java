@@ -52,8 +52,10 @@ public class AddTaskServlet extends HttpServlet {
                 req.setAttribute("user", session.getAttribute("user"));
                 req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
                 req.setAttribute("head", "Tasks");
+                req.setAttribute("customers", dbManager.getAllTasksForAdmin((String) session.getAttribute("email")));
+                req.setAttribute("isTask", "True");
 
-                getServletContext().getRequestDispatcher("/main.jsp").forward(req,resp);
+                getServletContext().getRequestDispatcher("mainAdmin.jsp").forward(req,resp);
             }
         } catch (DBException | IOException | ServletException e) {
             logger.error("Error in adding user", e);

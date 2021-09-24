@@ -54,9 +54,11 @@ public class AddUserServlet extends HttpServlet {
 
                 req.setAttribute("user", session.getAttribute("user"));
                 req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
+                req.setAttribute("customers", dbManager.getAllUsersForAdmin((String) session.getAttribute("email")));
                 req.setAttribute("head", "Users");
+                req.setAttribute("isUser", "True");
 
-                getServletContext().getRequestDispatcher("/main.jsp").forward(req,resp);
+                getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req,resp);
             }
         } catch (DBException | IOException | ServletException e) {
             logger.error("Error in adding user", e);

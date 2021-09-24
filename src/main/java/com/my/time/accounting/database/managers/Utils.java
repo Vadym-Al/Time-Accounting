@@ -12,6 +12,8 @@ import static com.my.time.accounting.database.SQLConstance.*;
 public class Utils {
     private static final Logger logger = LogManager.getLogger(Utils.class);
 
+    private Utils(){}
+
     public static void close(AutoCloseable autoCloseable) {
         if (autoCloseable != null) {
             try {

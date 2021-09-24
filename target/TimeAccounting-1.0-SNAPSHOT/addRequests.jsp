@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Add Request</title>
     <link rel="stylesheet" href="css/register_login_fon.css">
     <style type="text/css">
         body{
@@ -24,15 +24,13 @@
     <form method="post" action="register">
         <h1>Add Request</h1>
         <div>
-            <%--@declare id="name"--%><label for="name">Name of activity<b> *</b></label>
+            <%--@declare id="activity_type"--%><label for="activity_type">Activity type<b> *</b></label>
             <label>
-                <input type="text" name="name" required>
-            </label>
-        </div>
-        <div>
-            <%--@declare id="team_name"--%><label for="team_name">Team Name<b> *</b></label>
-            <label>
-                <input type="text" name="team_name" required>
+                <select name="activity_type">
+                    <c:forEach var="activity" items="${activity}">
+                        <option><c:out value="${activity.name}"/></option>
+                    </c:forEach>
+                </select>
             </label>
         </div>
         <div>

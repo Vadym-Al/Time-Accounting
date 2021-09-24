@@ -1,6 +1,5 @@
 package com.my.time.accounting.database;
 
-import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
 import com.my.time.accounting.database.managers.*;
@@ -358,28 +357,32 @@ public class DBManager {
     }
 
     public User searchUserByName(String name) throws DBException {
-        User user = new User();
+        User user;
         Connection connection = null;
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
         try {
             connection = getConnection();
-            pstmt = connection.prepareStatement(SQL_FIND_USER_BY_NAME);
-
-            pstmt.setString(1, "%" + escapeForLike(name) + "%");
-            resultSet = pstmt.executeQuery();
-
-            while (resultSet.next()) {
-                user = mapUser(resultSet);
-            }
+            user = UserManager.searchUserByName(connection, name);
         } catch (SQLException ex) {
             logger.error("Can not find User", ex);
             throw new DBException("Can not find User", ex);
         } finally {
-            close(resultSet);
-            close(pstmt);
             close(connection);
         }
         return user;
+    }
+
+    public Administrator searchAdminById(long id) throws DBException {
+        Administrator administrator;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            administrator = AdminManager.searchAdminById(connection, id);
+        } catch (SQLException ex) {
+            logger.error("Can not get all Requests for user", ex);
+            throw new DBException("Can not get all Requests for user", ex);
+        } finally {
+            close(connection);
+        }
+        return administrator;
     }
 }
