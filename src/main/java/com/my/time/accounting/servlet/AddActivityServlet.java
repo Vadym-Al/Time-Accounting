@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/add_activity")
 public class AddActivityServlet extends HttpServlet {
-    private final Logger logger = LogManager.getLogger(AddTeamServlet.class);
+    private final Logger logger = LogManager.getLogger(AddActivityServlet.class);
     private final DBManager dbManager = DBManager.getInstance();
 
     @Override

@@ -38,13 +38,21 @@
         <div>
             <%--@declare id="activity_type"--%><label for="activity_type">Activity type<b> *</b></label>
             <label>
-                <input type="text" name="activity_type" required>
+                <select name="activity_type">
+                    <c:forEach var="activity" items="${activity}">
+                        <option><c:out value="${activity.name}"/></option>
+                    </c:forEach>
+                </select>
             </label>
         </div>
         <div>
             <%--@declare id="users_name"--%><label for="users_name">User Name<b> *</b></label>
             <label>
-                <input type="text" name="users_name" required>
+                <select name="users_name">
+                    <c:forEach var="users_name" items="${users}">
+                        <option><c:out value="${users.name}"/></option>
+                    </c:forEach>
+                </select>
             </label>
         </div>
         <div>

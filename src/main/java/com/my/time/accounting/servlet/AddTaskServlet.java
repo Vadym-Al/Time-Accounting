@@ -47,7 +47,7 @@ public class AddTaskServlet extends HttpServlet {
                     logger.error("Error in adding user", e);
                 }
             }else{
-                dbManager.addAndUpdateTask(task, req.getParameter("users_name"));
+                dbManager.insertTaskForUser(task, req.getParameter("users_name"));
 
                 req.setAttribute("user", session.getAttribute("user"));
                 req.setAttribute("isAdmin", session.getAttribute("isAdmin"));

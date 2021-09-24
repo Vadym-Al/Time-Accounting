@@ -1,6 +1,5 @@
 package com.my.time.accounting.database.managers;
 
-import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.entity.Administrator;
 import com.my.time.accounting.entity.Request;
 import com.my.time.accounting.entity.User;
@@ -75,7 +74,6 @@ public class RequestManager {
         } finally {
             close(resultSet);
             close(pstmt);
-            close(connection);
         }
         return requests;
     }

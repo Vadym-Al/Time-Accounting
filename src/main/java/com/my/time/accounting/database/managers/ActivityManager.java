@@ -1,6 +1,5 @@
 package com.my.time.accounting.database.managers;
 
-import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.entity.Activity;
 import com.my.time.accounting.entity.Administrator;
 

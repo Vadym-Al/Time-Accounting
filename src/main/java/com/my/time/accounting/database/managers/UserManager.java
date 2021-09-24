@@ -1,11 +1,10 @@
 package com.my.time.accounting.database.managers;
 
-import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.entity.Administrator;
-import com.my.time.accounting.entity.Request;
-import com.my.time.accounting.entity.Team;
+import com.my.time.accounting.entity.Task;
 import com.my.time.accounting.entity.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

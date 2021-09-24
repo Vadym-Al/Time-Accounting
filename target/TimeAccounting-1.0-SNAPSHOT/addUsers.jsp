@@ -50,7 +50,11 @@
         <div>
             <%--@declare id="team_name"--%><label for="team_name">Team Name<b> *</b></label>
             <label>
-                <input type="text" name="team_name" required>
+                <select name="team_name">
+                    <c:forEach var="teams" items="${teams}">
+                        <option><c:out value="${teams.name}"/></option>
+                    </c:forEach>
+                </select>
             </label>
         </div>
         <div>

@@ -1,6 +1,5 @@
 package com.my.time.accounting.database.managers;
 
-import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.entity.Administrator;
 import com.my.time.accounting.entity.Task;
 
@@ -12,8 +11,7 @@ import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
 public class AdminManager {
-    private AdminManager() {
-    }
+    private AdminManager() {}
 
     public static void insertAdministrator(Connection connection, Administrator administrator) throws SQLException {
         PreparedStatement pstmt = null;

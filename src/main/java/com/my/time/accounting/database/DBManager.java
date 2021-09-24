@@ -46,7 +46,6 @@ public class DBManager {
     public Administrator searchAdminByEmail(String email) throws DBException {
         Administrator administrator;
         Connection connection = null;
-
         try {
             connection = getConnection();
             administrator = AdminManager.searchAdminByEmail(connection, email);
@@ -62,7 +61,6 @@ public class DBManager {
     public User searchUserByEmail(String email) throws DBException {
         User user;
         Connection connection = null;
-
         try {
             connection = getConnection();
             user = UserManager.searchUserByEmail(connection, email);
@@ -78,7 +76,6 @@ public class DBManager {
     public Team searchTeamByName(String name) throws DBException {
         Team team;
         Connection connection = null;
-
         try {
             connection = getConnection();
             team = TeamManager.searchTeamByName(connection, name);
@@ -94,8 +91,8 @@ public class DBManager {
     public Activity searchActivityByName(String name) throws DBException {
         Activity activity;
         Connection connection = null;
-
         try {
+            connection = getConnection();
             activity = ActivityManager.searchActivityByName(connection, name);
         } catch (SQLException ex) {
             logger.error("Can not find User", ex);
@@ -122,7 +119,6 @@ public class DBManager {
 
     public void insertActivity(Activity activity) throws DBException {
         Connection connection = null;
-
         try {
             connection = getConnection();
             ActivityManager.insertActivity(connection, activity);
@@ -137,7 +133,6 @@ public class DBManager {
 
     public void insertRequest(Request request) throws DBException {
         Connection connection = null;
-
         try {
             connection = getConnection();
             RequestManager.insertRequest(connection, request);
@@ -150,53 +145,25 @@ public class DBManager {
         }
     }
 
-    public void insertTask(Task task) throws DBException {
+    public void insertTaskForUser(Task task, String name) throws DBException {
         Connection connection = null;
-
         try {
             connection = getConnection();
             TaskManager.insertTask(connection, task);
+            User user = searchUserByName(name);
+            TaskManager.setTask(connection, task, user);
             connection.commit();
         } catch (SQLException ex) {
             logger.error("Can not insert Task", ex);
-            throw new DBException("Can not insert Task", ex);
-        } finally {
-            close(connection);
-        }
-    }
-
-    public void setTask(Task task, User...users) throws DBException {
-        Connection connection = null;
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = getConnection();
-            pstmt = connection.prepareStatement(SQL_ADD_TASK_TO_USER);
-
-            for (User user: users){
-                pstmt.setLong(1, user.getUserId());
-                pstmt.setLong(2, task.getTaskId());
-                pstmt.executeUpdate();
+            try {
+                assert connection != null;
+                connection.rollback();
+            } catch (SQLException e) {
+                logger.error("Can not roll back", e);
             }
-            connection.commit();
-        } catch (SQLException ex) {
-            logger.error("Can not insert Task", ex);
             throw new DBException("Can not insert Task", ex);
         } finally {
-            close(resultSet);
-            close(pstmt);
             close(connection);
-        }
-    }
-
-    public void addAndUpdateTask(Task task, String name) throws DBException {
-        try {
-            insertTask(task);
-            setTask(task, searchUserByName(name));
-        } catch (DBException ex) {
-            logger.error("Can not insert Task", ex);
-            throw new DBException("Can not insert Task", ex);
         }
     }
 
@@ -262,79 +229,9 @@ public class DBManager {
         return requests;
     }
 
-    public List<Task> getAllTasksForUser(String email) throws DBException {
-        List<Task> tasks = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = getConnection();
-            pstmt = connection.prepareStatement(SQL_GET_TASKS_BY_USER_HAS_TASK);
-
-            pstmt.setLong(1, searchUserByEmail(email).getUserId());
-            resultSet = pstmt.executeQuery();
-            while (resultSet.next()) {
-                tasks.add(getIdTasksForUser(resultSet.getLong("task_id")));
-            }
-        } catch (SQLException ex) {
-            logger.error("Can not get all Tasks ID", ex);
-            throw new DBException("Can not get all Tasks ID", ex);
-        } finally {
-            close(resultSet);
-            close(pstmt);
-            close(connection);
-        }
-        return tasks;
-    }
-
-    public Task getIdTasksForUser(long id) throws DBException {
-        Task task = new Task();
-        Connection connection = null;
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = getConnection();
-            pstmt = connection.prepareStatement(SQL_GET_TASKS_BY_TASK_ID);
-
-                pstmt.setLong(1, id);
-                resultSet = pstmt.executeQuery();
-                while (resultSet.next()) {
-                    task = mapTask(resultSet);
-                }
-        } catch (SQLException ex) {
-            logger.error("Can not get all Tasks", ex);
-            throw new DBException("Can not get all Tasks", ex);
-        } finally {
-            close(resultSet);
-            close(pstmt);
-            close(connection);
-        }
-        return task;
-    }
-
-    public List<Task> getAllTasksForAdmin(String email) throws DBException {
-        List<Task> tasks;
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-            Administrator administrator = searchAdminByEmail(email);
-            tasks = AdminManager.getAllTasksForAdmin(connection, administrator);
-        } catch (SQLException ex) {
-            logger.error("Can not get all Tasks for admin", ex);
-            throw new DBException("Can not get all Tasks for admin", ex);
-        } finally {
-            close(connection);
-        }
-        return tasks;
-    }
-
     public List<Team> getAllTeamsForAdmin(String email) throws DBException {
         List<Team> teams;
         Connection connection = null;
-
         try {
             connection = getConnection();
             Administrator administrator = searchAdminByEmail(email);
@@ -351,7 +248,6 @@ public class DBManager {
     public List<User> getAllUsersForAdmin(String email) throws DBException {
         List<User> users;
         Connection connection = null;
-
         try {
             connection = getConnection();
             Administrator administrator = searchAdminByEmail(email);
@@ -368,7 +264,6 @@ public class DBManager {
     public List<Team> getAllTeamsForUser(String email) throws DBException {
         List<Team> teams;
         Connection connection = null;
-
         try {
             connection = getConnection();
             User user = searchUserByEmail(email);
@@ -385,7 +280,6 @@ public class DBManager {
     public List<Request> getAllRequestsForUser(String email) throws DBException {
         List<Request> requests;
         Connection connection = null;
-
         try {
             connection = getConnection();
             User user = searchUserByEmail(email);
@@ -399,12 +293,75 @@ public class DBManager {
         return requests;
     }
 
+    public List<Task> getAllTasksForAdmin(String email) throws DBException {
+        List<Task> tasks;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Administrator administrator = searchAdminByEmail(email);
+            tasks = AdminManager.getAllTasksForAdmin(connection, administrator);
+        } catch (SQLException ex) {
+            logger.error("Can not get all Requests for user", ex);
+            throw new DBException("Can not get all Requests for user", ex);
+        } finally {
+            close(connection);
+        }
+        return tasks;
+    }
+
+    public List<Task> getAllTasksForUser(String email) throws DBException {
+        List<Task> tasks = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            User user = searchUserByEmail(email);
+            for (long id : getListOfTasks(user)){
+                tasks.add(getTasksForUserById(id));
+            }
+        } catch (SQLException ex) {
+            logger.error("Can not get all Requests for user", ex);
+            throw new DBException("Can not get all Requests for user", ex);
+        } finally {
+            close(connection);
+        }
+        return tasks;
+    }
+    
+    public Task getTasksForUserById(long id) throws DBException {
+        Task task;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            task = TaskManager.getTasksForUserById(connection, id);
+        } catch (SQLException ex) {
+            logger.error("Can not get all Requests for user", ex);
+            throw new DBException("Can not get all Requests for user", ex);
+        } finally {
+            close(connection);
+        }
+        return task;
+    }
+    
+    public List<Long> getListOfTasks(User user) throws DBException {
+        List<Long> list;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            list = TaskManager.getListOfTasks(connection, user);
+        } catch (SQLException ex) {
+            logger.error("Can not get all Requests for user", ex);
+            throw new DBException("Can not get all Requests for user", ex);
+        } finally {
+            close(connection);
+        }
+        return list;
+    }
+
     public User searchUserByName(String name) throws DBException {
         User user = new User();
         Connection connection = null;
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
-
         try {
             connection = getConnection();
             pstmt = connection.prepareStatement(SQL_FIND_USER_BY_NAME);

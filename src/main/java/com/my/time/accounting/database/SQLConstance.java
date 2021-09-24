@@ -31,16 +31,11 @@ public class SQLConstance {
     public static final String SQL_GET_TEAMS_BY_ADMIN = "SELECT * FROM team WHERE administrator_id LIKE ?";
     public static final String SQL_GET_USERS_BY_ADMIN = "SELECT * FROM user WHERE administrator_id LIKE ?";
     public static final String SQL_GET_TASKS_BY_ADMIN = "SELECT * FROM task WHERE administrator_id LIKE ?";
+    public static final String SQL_GET_TASKS_BY_ID = "SELECT * FROM task WHERE task_id LIKE ?";
+    public static final String SQL_GET_USER_HAS_TASK_BY_USER = "SELECT * FROM user_has_task WHERE user_id LIKE ?";
 
     public static final String SQL_GET_TEAMS_BY_USER = "SELECT * FROM team WHERE team_id LIKE ?";
     public static final String SQL_GET_REQUESTS_BY_USER = "SELECT * FROM request WHERE user_id LIKE ?";
-
-    public static final String SQL_GET_TASKS_BY_TASK_ID = "SELECT * FROM user_has_task WHERE user_id LIKE ?";
-    public static final String SQL_GET_TASKS_BY_USER_HAS_TASK = "SELECT * FROM task WHERE task_id LIKE ?";
-    /*
-    public static final String SQL_FIND_TEAM_BY_NAME = "SELECT * FROM teams WHERE name LIKE ? ESCAPE '!'";
-    public static final String SQL_FIND_TEAM_BY_ID = "SELECT * FROM teams WHERE id=?";
-    public static final String SQL_FIND_ALL_TEAM_BY_USER = "SELECT * FROM users_teams WHERE user_id=?";*/
 
     //--------------------------------------------------------
 
@@ -51,15 +46,6 @@ public class SQLConstance {
     public static final String SQL_ADD_NEW_TEAM = "INSERT INTO team (name, company, description, administrator_id) VALUES (?, ?, ?, ?)";
     public static final String SQL_ADD_NEW_REQUEST = "INSERT INTO users_teams (user_id, team_id) VALUES (?, ?)";
     public static final String SQL_ADD_NEW_ACTIVITY_TYPE = "INSERT INTO activity_type (name, about, administrator_id) VALUES (?, ?, ?)";
-
-    //--------------------------------------------------------
-
-    public static final String SQL_FIND_ALL_USERS = "SELECT * FROM user";
-    public static final String SQL_FIND_ALL_ADMINISTRATORS = "SELECT * FROM administrator";
-    public static final String SQL_FIND_ALL_TASKS = "SELECT * FROM task";
-    public static final String SQL_FIND_ALL_TEAMS = "SELECT * FROM team";
-    public static final String SQL_FIND_ALL_REQUEST = "SELECT * FROM request";
-    public static final String SQL_FIND_ALL_ACTIVITY_TYPE = "SELECT * FROM activity_type";
 
     //--------------------------------------------------------
 

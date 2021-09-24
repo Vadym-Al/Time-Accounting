@@ -56,6 +56,9 @@
                     <option>French</option>
                 </select></a></li>
             </ul>
+            <ul class="nav">
+                <li><a class="link" href="index.jsp">Sign out</a></li>
+            </ul>
         </c:if>
         <ul class="nav icon">
             <li><a class="link" href="profile"><i>${requestScope.user}</i></a></li>
@@ -67,7 +70,7 @@
     <div class="main_event">${requestScope.head}</div>
     <div class="logic_menu">
         <ul class="logic_nav">
-            <li><a class="link" href="add${requestScope.head}.jsp">Add</a></li>
+            <li><a class="link" href="redirect?head=${requestScope.head}">Add</a></li>
             <li><a class="link" href="show_context?page=${requestScope.head}">Update</a></li>
 
         </ul>
@@ -93,7 +96,7 @@
                     <div>
                             <%--@declare id="company"--%><label for="company">Company: <c:out
                             value="${customer.company}"/></label>
-                            <%--@declare id="phoneNumber"--%><label for="phoneNumber">Description: <c:out
+                            <%--@declare id="description"--%><label for="description">Description: <c:out
                             value="${customer.description}"/></label>
                     </div>
                     <br>
@@ -109,7 +112,7 @@
                         <br>
                     </div>
                     <div>
-                            <%--@declare id="company"--%><label for="company">About: <c:out
+                            <%--@declare id="about"--%><label for="about">About: <c:out
                             value="${customer.about}"/></label>
                     </div>
                     <br>
@@ -125,11 +128,11 @@
                         <br>
                     </div>
                     <div>
-                            <%--@declare id="company"--%><label for="company">Dead Line: <c:out
+                            <%--@declare id="deadline"--%><label for="deadline">Dead Line: <c:out
                             value="${customer.deadline}"/></label>
-                            <%--@declare id="phoneNumber"--%><label for="phoneNumber">Description: <c:out
+                            <%--@declare id="about"--%><label for="about">Description: <c:out
                             value="${customer.about}"/></label>
-                            <%--@declare id="phoneNumber"--%><label for="phoneNumber">Wasted Time: <c:out
+                            <%--@declare id="wastedTime"--%><label for="wastedTime">Wasted Time: <c:out
                             value="${customer.wastedTime}"/></label>
 
                     </div>
@@ -146,7 +149,7 @@
                         <br>
                     </div>
                     <div>
-                            <%--@declare id="company"--%><label for="company">Email: <c:out
+                            <%--@declare id="email"--%><label for="email">Email: <c:out
                             value="${customer.email}"/></label>
                             <%--@declare id="company"--%><label for="company">Company: <c:out
                             value="${customer.company}"/></label>
