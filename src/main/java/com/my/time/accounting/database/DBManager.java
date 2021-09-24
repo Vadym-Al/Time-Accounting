@@ -301,8 +301,8 @@ public class DBManager {
             Administrator administrator = searchAdminByEmail(email);
             tasks = AdminManager.getAllTasksForAdmin(connection, administrator);
         } catch (SQLException ex) {
-            logger.error("Can not get all Requests for user", ex);
-            throw new DBException("Can not get all Requests for user", ex);
+            logger.error("Can not get all Tasks for admin", ex);
+            throw new DBException("Can not get all Tasks for admin", ex);
         } finally {
             close(connection);
         }
@@ -319,8 +319,8 @@ public class DBManager {
                 tasks.add(getTasksForUserById(id));
             }
         } catch (SQLException ex) {
-            logger.error("Can not get all Requests for user", ex);
-            throw new DBException("Can not get all Requests for user", ex);
+            logger.error("Can not get all Tasks for user", ex);
+            throw new DBException("Can not get all Tasks for user", ex);
         } finally {
             close(connection);
         }

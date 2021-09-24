@@ -53,7 +53,7 @@ public class Utils {
         Request request = new Request();
         request.setRequestId(rs.getLong("request_id"));
         request.setAbout(rs.getString(SQL_ABOUT));
-        request.setActivityId(rs.getLong(SQL_ACTIVITY_ID));
+        request.setActivityId(rs.getLong("activity_type_id"));
         request.setAdministratorId(rs.getLong(SQL_ADMINISTRATOR_ID));
         request.setUserId(rs.getLong("user_id"));
         return request;
@@ -67,7 +67,7 @@ public class Utils {
         task.setAbout(rs.getString(SQL_ABOUT));
         task.setWastedTime(rs.getTime("wasted_time"));
         task.setCreateTime(rs.getTimestamp(SQL_CREATE_TIME));
-        task.setActivityType(rs.getLong(SQL_ACTIVITY_ID));
+        task.setActivityType(rs.getLong("activity_type_id"));
         task.setAdministratorId(rs.getLong(SQL_ADMINISTRATOR_ID));
         return task;
     }
