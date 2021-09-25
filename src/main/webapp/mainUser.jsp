@@ -28,28 +28,28 @@
 <div class="navigation">
     <div class="logo">LOGO</div>
     <div class="menu">
-            <ul class="nav">
-                <li><a class="link" href="show_context?page=Teams">Teams</a></li>
-                <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
-                <li><a class="link" href="show_context?page=Requests">Requests</a></li>
-                <li><a class="link" href="#"><select>
-                    <option onclick="">English</option>
-                    <option>Russian</option>
-                    <option>French</option>
-                </select></a></li>
-            </ul>
-            <ul class="nav">
-                <li><a class="link" href="index.jsp">Sign out</a></li>
-            </ul>
+        <ul class="nav">
+            <li><a class="link" href="show_context?page=Teams">Teams</a></li>
+            <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
+            <li><a class="link" href="show_context?page=Requests">Requests</a></li>
+            <li><a class="link" href="#"><select>
+                <option onclick="">English</option>
+                <option>Russian</option>
+                <option>French</option>
+            </select></a></li>
+        </ul>
+        <ul class="nav">
+            <li><a class="link" href="index.jsp">Sign out</a></li>
+        </ul>
         <ul class="nav icon">
             <li><a class="link" href="profile"><i>${requestScope.user}</i></a></li>
             <li><a class="link" href="profile"><img class="user" src="css/img/user.png" alt="user"></a></li>
         </ul>
     </div>
 </div>
-    <div class="logic_bar">
-        <div class="main_event">${requestScope.head}</div>
-        <c:if test="${isRequest == true}">
+<div class="logic_bar">
+    <div class="main_event">${requestScope.head}</div>
+    <c:if test="${isRequest == true}">
         <div class="logic_menu">
             <ul class="logic_nav">
                 <li><a class="link" href="redirect?head=${requestScope.head}">Add</a></li>
@@ -63,8 +63,8 @@
                 <li><a class="link" href="index.jsp">Sort</a></li>
             </ul>
         </div>
-        </c:if>
-    </div>
+    </c:if>
+</div>
 <main>
     <div class="d-flex flex-wrap">
         <c:if test="${isTeam == true}">
@@ -86,7 +86,7 @@
         </c:if>
         <c:if test="${isTask == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" action="#">
+                <form method="post" action="edit?id=${customer.taskId}">
                     <div>
                         <h1><c:out value="${customer.name}"/></h1>
                         <br>
@@ -96,12 +96,10 @@
                             value="${customer.deadline}"/></label>
                             <%--@declare id="about"--%><label for="about">Description: <c:out
                             value="${customer.about}"/></label>
-                            <%--@declare id="wastedTime"--%><label for="wastedTime">Wasted Time: <c:out
-                            value="${customer.wastedTime}"/></label>
-                                <label>
-                                    <input type="time" name="wastedTime" required>
-                                </label>
-
+                            <%--@declare id="wastedTime"--%><label for="wastedTime">Wasted Time: <input type="time"
+                                                                                                        name="wastedTime"
+                                                                                                        value="${customer.wastedTime}"
+                                                                                                        required></label>
                     </div>
                     <br>
                     <button type="submit">Edit</button>

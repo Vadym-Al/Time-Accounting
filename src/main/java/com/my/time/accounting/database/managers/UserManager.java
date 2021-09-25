@@ -103,6 +103,26 @@ public class UserManager {
         return user;
     }
 
+    public static User searchUserById(Connection connection, long id) throws SQLException {
+        User user = new User();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_FIND_USER_BY_ID);
+
+            pstmt.setLong(1, id);
+            resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                user = mapUser(resultSet);
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return user;
+    }
+
     public static List<User> searchUserByTeamId(Connection connection, long id) throws SQLException {
         List<User> users = new ArrayList<>();
         PreparedStatement pstmt = null;

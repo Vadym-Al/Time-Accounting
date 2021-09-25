@@ -100,6 +100,19 @@ public class TaskManager {
         return list;
     }
 
+    public static void updateTask(Connection connection, long id, Time time) throws SQLException {
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_UPDATE_TASK);
+            int k = 1;
+            pstmt.setTime(k++, time);
+            pstmt.setLong(k++, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
+
     public static void setTask(Connection connection, Task task, User user) throws SQLException {
         PreparedStatement pstmt = null;
         try {

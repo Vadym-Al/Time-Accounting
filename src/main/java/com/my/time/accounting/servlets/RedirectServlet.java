@@ -1,4 +1,4 @@
-package com.my.time.accounting.servlet;
+package com.my.time.accounting.servlets;
 
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;

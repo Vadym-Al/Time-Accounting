@@ -79,7 +79,27 @@ public class RequestManager {
         return requests;
     }
 
-    public static void deleteRequest(Connection connection, long id) throws SQLException{
+    public static Request searchRequestById(Connection connection, long id) throws SQLException {
+        Request request = new Request();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        try {
+            pstmt = connection.prepareStatement(SQL_GET_REQUEST_BY_ID);
+
+            pstmt.setLong(1, id);
+            resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                request = mapRequest(resultSet);
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return request;
+    }
+
+    public static void deleteRequest(Connection connection, long id) throws SQLException {
         PreparedStatement pstmt = null;
         try {
             pstmt = connection.prepareStatement(SQL_DELETE_REQUEST);

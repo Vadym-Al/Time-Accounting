@@ -50,7 +50,7 @@
             <label>
                 <select name="users_name">
                     <c:forEach var="users_name" items="${users}">
-                        <option><c:out value="${users.name}"/></option>
+                        <option><c:out value="${users_name.name}"/></option>
                     </c:forEach>
                 </select>
             </label>

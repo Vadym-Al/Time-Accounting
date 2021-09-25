@@ -57,6 +57,27 @@ public class ActivityManager {
         return activities;
     }
 
+    public static Activity searchActivityById(Connection connection, long id) throws SQLException {
+        Activity activity = new Activity();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        try {
+            pstmt = connection.prepareStatement(SQL_FIND_ACTIVITY_BY_ID);
+
+            pstmt.setLong(1, id);
+            resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                activity = mapActivity(resultSet);
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return activity;
+    }
+
     public static Activity searchActivityByName(Connection connection, String name) throws SQLException {
         Activity activity = new Activity();
         PreparedStatement pstmt = null;

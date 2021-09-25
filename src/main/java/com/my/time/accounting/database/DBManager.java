@@ -72,6 +72,21 @@ public class DBManager {
         return user;
     }
 
+    public User searchUserById(long id) throws DBException {
+        User user;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            user = UserManager.searchUserById(connection, id);
+        } catch (SQLException ex) {
+            logger.error("Can not find User", ex);
+            throw new DBException("Can not find USer", ex);
+        } finally {
+            close(connection);
+        }
+        return user;
+    }
+
     public Team searchTeamByName(String name) throws DBException {
         Team team;
         Connection connection = null;
@@ -93,6 +108,21 @@ public class DBManager {
         try {
             connection = getConnection();
             activity = ActivityManager.searchActivityByName(connection, name);
+        } catch (SQLException ex) {
+            logger.error("Can not find User", ex);
+            throw new DBException("Can not find User", ex);
+        } finally {
+            close(connection);
+        }
+        return activity;
+    }
+
+    public Activity searchActivityById(long id) throws DBException {
+        Activity activity;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            activity = ActivityManager.searchActivityById(connection, id);
         } catch (SQLException ex) {
             logger.error("Can not find User", ex);
             throw new DBException("Can not find User", ex);
@@ -330,7 +360,7 @@ public class DBManager {
             connection = getConnection();
             User user = searchUserByEmail(email);
             for (long id : getListOfTasks(user)){
-                tasks.add(getTasksForUserById(id));
+                tasks.add(getTasksById(id));
             }
         } catch (SQLException ex) {
             logger.error("Can not get all Tasks for user", ex);
@@ -341,7 +371,7 @@ public class DBManager {
         return tasks;
     }
     
-    public Task getTasksForUserById(long id) throws DBException {
+    public Task getTasksById(long id) throws DBException {
         Task task;
         Connection connection = null;
         try {
@@ -398,6 +428,21 @@ public class DBManager {
             close(connection);
         }
         return administrator;
+    }
+
+    public Request searchRequestById(long id) throws DBException {
+        Request request;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            request = RequestManager.searchRequestById(connection, id);
+        } catch (SQLException ex) {
+            logger.error("Can not get Requests by id", ex);
+            throw new DBException("Can not get Requests by id", ex);
+        } finally {
+            close(connection);
+        }
+        return request;
     }
 
     public void deleteActivity(long id) throws DBException {
@@ -494,6 +539,20 @@ public class DBManager {
                 logger.error("Can not roll back", e);
             }
             throw new DBException("Can not delete User", ex);
+        } finally {
+            close(connection);
+        }
+    }
+
+    public void updateTask(long id, Time time) throws DBException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            TaskManager.updateTask(connection, id, time);
+            connection.commit();
+        } catch (SQLException ex) {
+            logger.error("Can not update Task", ex);
+            throw new DBException("Can not update Task", ex);
         } finally {
             close(connection);
         }

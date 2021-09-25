@@ -28,30 +28,30 @@
 <div class="navigation">
     <div class="logo">LOGO</div>
     <div class="menu">
-            <ul class="nav">
-                <li><a class="link" href="show_context?page=Teams">Teams</a></li>
-                <li><a class="link" href="show_context?page=Users">Users</a></li>
-                <li><a class="link" href="show_context?page=Activities">Activities</a></li>
-                <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
-                <li><a class="link" href="show_context?page=Requests">Requests</a></li>
-                <li><a class="link" href="#"><select>
-                    <option onclick="">English</option>
-                    <option>Russian</option>
-                    <option>French</option>
-                </select></a></li>
-            </ul>
-            <ul class="nav">
-                <li><a class="link" href="index.jsp">Sign out</a></li>
-            </ul>
+        <ul class="nav">
+            <li><a class="link" href="show_context?page=Teams">Teams</a></li>
+            <li><a class="link" href="show_context?page=Users">Users</a></li>
+            <li><a class="link" href="show_context?page=Activities">Activities</a></li>
+            <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
+            <li><a class="link" href="show_context?page=Requests">Requests</a></li>
+            <li><a class="link" href="#"><select>
+                <option onclick="">English</option>
+                <option>Russian</option>
+                <option>French</option>
+            </select></a></li>
+        </ul>
+        <ul class="nav">
+            <li><a class="link" href="index.jsp">Sign out</a></li>
+        </ul>
         <ul class="nav icon">
             <li><a class="link" href="profile"><i>${requestScope.user}</i></a></li>
             <li><a class="link" href="profile"><img class="user" src="css/img/user.png" alt="user"></a></li>
         </ul>
     </div>
 </div>
-    <div class="logic_bar">
-        <div class="main_event">${requestScope.head}</div>
-        <c:if test="${requestScope.isRequest!=true}">
+<div class="logic_bar">
+    <div class="main_event">${requestScope.head}</div>
+    <c:if test="${requestScope.isRequest!=true}">
         <div class="logic_menu">
             <ul class="logic_nav">
                 <li><a class="link" href="redirect?head=${requestScope.head}">Add</a></li>
@@ -65,13 +65,14 @@
                 <li><a class="link" href="index.jsp">Sort</a></li>
             </ul>
         </div>
-        </c:if>
-    </div>
+    </c:if>
+</div>
 <main>
     <div class="d-flex flex-wrap">
         <c:if test="${isTeam == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} team will be deleted?");' action="delete?id=${customer.teamId}&type=Team">
+                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} team will be deleted?");'
+                      action="delete?id=${customer.teamId}&type=Team">
                     <div>
                         <h1><c:out value="${customer.name}"/></h1>
                         <br>
@@ -89,7 +90,9 @@
         </c:if>
         <c:if test="${isActivity == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} activity will be deleted?");' action="delete?id=${customer.activityId}&type=Activity">
+                <form method="post"
+                      onSubmit='return confirm("Are you sure, ${customer.name} activity will be deleted?");'
+                      action="delete?id=${customer.activityId}&type=Activity">
                     <div>
                         <h1><c:out value="${customer.name}"/></h1>
                         <br>
@@ -105,7 +108,8 @@
         </c:if>
         <c:if test="${isTask == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} task will be deleted?");' action="delete?id=${customer.taskId}&type=Task">
+                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} task will be deleted?");'
+                      action="delete?id=${customer.taskId}&type=Task">
                     <div>
                         <h1><c:out value="${customer.name}"/></h1>
                         <br>
@@ -126,7 +130,8 @@
         </c:if>
         <c:if test="${isUser == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} will be deleted?");' action="delete?id=${customer.userId}&type=User">
+                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} will be deleted?");'
+                      action="delete?id=${customer.userId}&type=User">
                     <div>
                         <h1><c:out value="${customer.name} ${customer.lastName}"/></h1>
                         <br>
@@ -146,10 +151,14 @@
         </c:if>
         <c:if test="${isRequest == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" onSubmit='return confirm("Are you sure, Yo want to confirm this request?");' action="#">
+                <form method="post" onSubmit='return confirm("Are you sure, Yo want to confirm this request?");'
+                      action="confirm?id=${customer.requestId}">
                     <div>
                             <%--@declare id="about"--%><label for="about">About: <c:out
                             value="${customer.about}"/></label>
+                            <%--@declare id="deadline"--%><label for="deadline">Dead Line: <input type="date"
+                                                                                                        name="deadline"
+                                                                                                        required></label>
                     </div>
                     <br>
                     <button type="submit">Confirm</button>

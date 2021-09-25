@@ -22,8 +22,10 @@ public class SQLConstance {
     public static final String SQL_FIND_USER_BY_EMAIL = "SELECT * FROM user WHERE email LIKE ? ESCAPE '!'";
     public static final String SQL_FIND_TEAM_BY_NAME = "SELECT * FROM team WHERE name LIKE ? ESCAPE '!'";
     public static final String SQL_FIND_ACTIVITY_BY_NAME = "SELECT * FROM activity_type WHERE name LIKE ? ESCAPE '!'";
+    public static final String SQL_FIND_ACTIVITY_BY_ID = "SELECT * FROM activity_type WHERE activity_id LIKE ?";
     public static final String SQL_FIND_USER_BY_NAME = "SELECT * FROM user WHERE name LIKE ?";
     public static final String SQL_FIND_USER_BY_TEAM_ID = "SELECT * FROM user WHERE team_id LIKE ?";
+    public static final String SQL_FIND_USER_BY_ID = "SELECT * FROM user WHERE user_id LIKE ?";
     public static final String SQL_FIND_ADMINISTRATOR_BY_ID = "SELECT * FROM administrator WHERE administrator_id LIKE ?";
     public static final String SQL_FIND_TASK_BY_NAME = "SELECT * FROM task WHERE name LIKE ? ESCAPE '!'";
 
@@ -36,6 +38,7 @@ public class SQLConstance {
     public static final String SQL_GET_TASKS_BY_ADMIN = "SELECT * FROM task WHERE administrator_id LIKE ?";
     public static final String SQL_GET_TASKS_BY_ID = "SELECT * FROM task WHERE task_id LIKE ?";
     public static final String SQL_GET_USER_HAS_TASK_BY_USER = "SELECT * FROM user_has_task WHERE user_id LIKE ?";
+    public static final String SQL_GET_REQUEST_BY_ID = "SELECT * FROM request WHERE request_id LIKE ?";
 
     public static final String SQL_GET_TEAMS_BY_USER = "SELECT * FROM team WHERE team_id LIKE ?";
     public static final String SQL_GET_REQUESTS_BY_USER = "SELECT * FROM request WHERE user_id LIKE ?";
@@ -60,4 +63,8 @@ public class SQLConstance {
     public static final String SQL_DELETE_USER_HAS_TASK_TASK = "DELETE FROM user_has_task WHERE task_id=?";
     public static final String SQL_DELETE_USER = "DELETE FROM user WHERE user_id=?";
     public static final String SQL_DELETE_REQUEST_FOR_USER = "DELETE FROM request WHERE user_id=?";
+
+    //--------------------------------------------------------
+
+    public static final String SQL_UPDATE_TASK = "UPDATE task SET wasted_time=? WHERE task_id=?";
 }
