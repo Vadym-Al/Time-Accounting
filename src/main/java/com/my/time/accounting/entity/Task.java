@@ -108,11 +108,11 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return activityType == task.activityType && name.equals(task.name) && deadline.equals(task.deadline) && Objects.equals(about, task.about) && Objects.equals(wastedTime, task.wastedTime) && createTime.equals(task.createTime);
+        return Objects.equals(name, task.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, deadline, about, wastedTime, createTime, activityType);
+        return Objects.hash(name);
     }
 }

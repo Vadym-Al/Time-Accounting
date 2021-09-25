@@ -25,6 +25,7 @@ public class RequestManager {
             pstmt.setString(k++, request.getAbout());
             pstmt.setLong(k++, request.getActivityId());
             pstmt.setLong(k++, request.getAdministratorId());
+            pstmt.setLong(k++, request.getUserId());
 
             if (pstmt.executeUpdate() > 0) {
                 resultSet = pstmt.getGeneratedKeys();
@@ -76,5 +77,27 @@ public class RequestManager {
             close(pstmt);
         }
         return requests;
+    }
+
+    public static void deleteRequest(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_REQUEST);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
+
+    public static void deleteRequestFoUser(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_REQUEST_FOR_USER);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
     }
 }

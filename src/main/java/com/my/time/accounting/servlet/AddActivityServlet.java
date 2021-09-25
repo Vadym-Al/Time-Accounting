@@ -50,7 +50,7 @@ public class AddActivityServlet extends HttpServlet {
                 req.setAttribute("customers", dbManager.getAllActivitiesForAdmin((String) session.getAttribute("email")));
                 req.setAttribute("isActivity", "True");
 
-                getServletContext().getRequestDispatcher("mainAdmin.jsp").forward(req, resp);
+                getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
             }
         } catch (ServletException | IOException | DBException e) {
             logger.error("Error when add activity", e);

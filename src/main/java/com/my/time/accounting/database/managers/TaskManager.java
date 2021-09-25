@@ -1,6 +1,7 @@
 package com.my.time.accounting.database.managers;
 
 import com.my.time.accounting.entity.Task;
+import com.my.time.accounting.entity.Team;
 import com.my.time.accounting.entity.User;
 
 import java.sql.*;
@@ -59,14 +60,35 @@ public class TaskManager {
         return task;
     }
 
-    public static List<Long> getListOfTasks(Connection connection, User user) throws SQLException {
+    public static Task searchTaskByName(Connection connection, String name) throws SQLException {
+        Task task = new Task();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        try {
+            pstmt = connection.prepareStatement(SQL_FIND_TASK_BY_NAME);
+
+            pstmt.setString(1, "%" + escapeForLike(name) + "%");
+            resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                task = mapTask(resultSet);
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return task;
+    }
+
+    public static List<Long> getListOfTasks(Connection connection, long id) throws SQLException {
         List<Long> list = new ArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         try {
             pstmt = connection.prepareStatement(SQL_GET_USER_HAS_TASK_BY_USER);
 
-            pstmt.setLong(1, user.getUserId());
+            pstmt.setLong(1, id);
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 list.add(resultSet.getLong("task_id"));
@@ -86,6 +108,28 @@ public class TaskManager {
             int k = 1;
             pstmt.setLong(k++, user.getUserId());
             pstmt.setLong(k++, task.getTaskId());
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
+
+    public static void deleteTask(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_TASK);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
+
+    public static void deleteUserHasTask(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_USER_HAS_TASK_TASK);
+            pstmt.setLong(1, id);
             pstmt.executeUpdate();
         } finally {
             close(pstmt);

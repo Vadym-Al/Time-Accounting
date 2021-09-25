@@ -102,6 +102,21 @@ public class DBManager {
         return activity;
     }
 
+    public Task searchTaskByName(String name) throws DBException {
+        Task task;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            task = TaskManager.searchTaskByName(connection, name);
+        } catch (SQLException ex) {
+            logger.error("Can not find Task", ex);
+            throw new DBException("Can not find Task", ex);
+        } finally {
+            close(connection);
+        }
+        return task;
+    }
+
     public void insertAdministrator(Administrator administrator) throws DBException {
         Connection connection = null;
         try {
@@ -346,7 +361,7 @@ public class DBManager {
         Connection connection = null;
         try {
             connection = getConnection();
-            list = TaskManager.getListOfTasks(connection, user);
+            list = TaskManager.getListOfTasks(connection, user.getUserId());
         } catch (SQLException ex) {
             logger.error("Can not get all Requests for user", ex);
             throw new DBException("Can not get all Requests for user", ex);
@@ -355,7 +370,6 @@ public class DBManager {
         }
         return list;
     }
-
     public User searchUserByName(String name) throws DBException {
         User user;
         Connection connection = null;
@@ -384,5 +398,104 @@ public class DBManager {
             close(connection);
         }
         return administrator;
+    }
+
+    public void deleteActivity(long id) throws DBException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            ActivityManager.deleteActivity(connection, id);
+            connection.commit();
+        } catch (SQLException ex) {
+            logger.error("Can not delete Activity", ex);
+            throw new DBException("Can not delete Activity", ex);
+        } finally {
+            close(connection);
+        }
+    }
+
+    public void deleteRequest(long id) throws DBException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            RequestManager.deleteRequest(connection, id);
+            connection.commit();
+        } catch (SQLException ex) {
+            logger.error("Can not delete Request", ex);
+            throw new DBException("Can not delete Request", ex);
+        } finally {
+            close(connection);
+        }
+    }
+
+    public void deleteTask(long id) throws DBException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            TaskManager.deleteUserHasTask(connection, id);
+            TaskManager.deleteTask(connection, id);
+            connection.commit();
+        } catch (SQLException ex) {
+            logger.error("Can not delete Task", ex);
+            try {
+                assert connection != null;
+                connection.rollback();
+            } catch (SQLException e) {
+                logger.error("Can not roll back", e);
+            }
+            throw new DBException("Can not delete Task", ex);
+        } finally {
+            close(connection);
+        }
+    }
+
+    public void deleteUser(long id) throws DBException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            List<Long> list = TaskManager.getListOfTasks(connection, id);
+            for (long i: list){
+                TaskManager.deleteTask(connection, i);
+            }
+            UserManager.deleteUserHasTask(connection, id);
+            RequestManager.deleteRequestFoUser(connection, id);
+            UserManager.deleteUser(connection, id);
+            connection.commit();
+        } catch (SQLException ex) {
+            logger.error("Can not delete User", ex);
+            try {
+                assert connection != null;
+                connection.rollback();
+            } catch (SQLException e) {
+                logger.error("Can not roll back", e);
+            }
+            throw new DBException("Can not delete User", ex);
+        } finally {
+            close(connection);
+        }
+    }
+
+    public void deleteTeam(long id) throws DBException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            List<User> list = UserManager.searchUserByTeamId(connection, id);
+            for (User user: list){
+                deleteUser(user.getUserId());
+            }
+            TeamManager.deleteTeam(connection, id);
+            connection.commit();
+        } catch (SQLException ex) {
+            logger.error("Can not delete User", ex);
+            try {
+                assert connection != null;
+                connection.rollback();
+            } catch (SQLException e) {
+                logger.error("Can not roll back", e);
+            }
+            throw new DBException("Can not delete User", ex);
+        } finally {
+            close(connection);
+        }
     }
 }

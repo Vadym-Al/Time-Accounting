@@ -79,12 +79,13 @@ public class AdminManager {
         }
         return administrator;
     }
+
     public static Administrator searchAdminById(Connection connection, long id) throws SQLException {
         Administrator administrator = new Administrator();
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         try {
-            pstmt = connection.prepareStatement(SQL_GET_TASKS_BY_ID);
+            pstmt = connection.prepareStatement(SQL_FIND_ADMINISTRATOR_BY_ID);
 
             pstmt.setLong(1, id);
             resultSet = pstmt.executeQuery();

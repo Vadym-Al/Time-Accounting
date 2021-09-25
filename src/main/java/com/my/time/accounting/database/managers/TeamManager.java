@@ -100,4 +100,15 @@ public class TeamManager {
         }
         return team;
     }
+
+    public static void deleteTeam(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_TEAM);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
 }

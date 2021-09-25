@@ -9,11 +9,12 @@ public class Request {
     private long administratorId;
     private long userId;
 
-    public static Request createRequest(String about, long activityId, long administratorId){
+    public static Request createRequest(String about, long activityId, long administratorId, long userId){
         Request request = new Request();
         request.setAbout(about);
         request.setActivityId(activityId);
         request.setAdministratorId(administratorId);
+        request.setUserId(userId);
         return request;
     }
 

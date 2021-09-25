@@ -3,6 +3,7 @@ package com.my.time.accounting.servlet;
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
 import com.my.time.accounting.entity.Administrator;
+import com.my.time.accounting.entity.Team;
 import com.my.time.accounting.logic.AsList;
 import com.my.time.accounting.logic.PasswordCod;
 import org.apache.log4j.LogManager;
@@ -29,7 +30,6 @@ public class RegisterServlet extends HttpServlet {
                 req.getParameter("email"),
                 req.getParameter("company"),
                 req.getParameter("phone_number"));
-
         try {
             if (administrator.equals(dbManager.searchAdminByEmail(req.getParameter("email")))){
                 req.setAttribute("error", true);
@@ -40,6 +40,11 @@ public class RegisterServlet extends HttpServlet {
                 }
             }else{
                 dbManager.insertAdministrator(administrator);
+
+                Team team = Team.createTeam(req.getParameter("company"),
+                        req.getParameter("company"),
+                        "My Team", dbManager.searchAdminByEmail(administrator.getEmail()).getAdminId());
+                dbManager.insertTeam(team);
                 String user = administrator.getName() + " " + administrator.getLastName();
 
                 req.setAttribute("user", user);

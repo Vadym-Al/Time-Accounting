@@ -1,6 +1,5 @@
 package com.my.time.accounting.database.managers;
 
-import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.entity.Administrator;
 import com.my.time.accounting.entity.User;
 
@@ -102,5 +101,47 @@ public class UserManager {
             close(pstmt);
         }
         return user;
+    }
+
+    public static List<User> searchUserByTeamId(Connection connection, long id) throws SQLException {
+        List<User> users = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_FIND_USER_BY_TEAM_ID);
+
+            pstmt.setLong(1, id);
+            resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                users.add(mapUser(resultSet));
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return users;
+    }
+
+    public static void deleteUser(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_USER);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
+
+    public static void deleteUserHasTask(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_USER_HAS_TASK_USER);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
     }
 }

@@ -2,7 +2,6 @@ package com.my.time.accounting.servlet;
 
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
-import com.my.time.accounting.database.managers.AdminManager;
 import com.my.time.accounting.entity.Administrator;
 import com.my.time.accounting.entity.User;
 import org.apache.log4j.LogManager;

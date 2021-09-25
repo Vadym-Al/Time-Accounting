@@ -3,18 +3,18 @@ package com.my.time.accounting.database;
 public class SQLConstance {
     private SQLConstance(){}
 
-    public static final String SQL_NAME = "name";
-    public static final String SQL_LAST_NAME = "last_name";
-    public static final String SQL_PASSWORD = "password";
-    public static final String SQL_EMAIL = "email";
-    public static final String SQL_COMPANY = "company";
-    public static final String SQL_ABOUT = "about";
-    public static final String SQL_PHONE_NUMBER = "phone_number";
-    public static final String SQL_CREATE_TIME = "create_time";
-    public static final String SQL_ADMINISTRATOR_ID = "administrator_id";
-    public static final String SQL_ACTIVITY_ID = "activity_id";
-    public static final String SQL_TEAM_ID = "team_id";
-    public static final String SQL_ERROR = "error";
+    public static final String NAME = "name";
+    public static final String LAST_NAME = "last_name";
+    public static final String PASSWORD = "password";
+    public static final String EMAIL = "email";
+    public static final String COMPANY = "company";
+    public static final String ABOUT = "about";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String CREATE_TIME = "create_time";
+    public static final String ADMINISTRATOR_ID = "administrator_id";
+    public static final String ACTIVITY_ID = "activity_id";
+    public static final String TEAM_ID = "team_id";
+    public static final String ERROR = "error";
 
     //--------------------------------------------------------
 
@@ -23,6 +23,9 @@ public class SQLConstance {
     public static final String SQL_FIND_TEAM_BY_NAME = "SELECT * FROM team WHERE name LIKE ? ESCAPE '!'";
     public static final String SQL_FIND_ACTIVITY_BY_NAME = "SELECT * FROM activity_type WHERE name LIKE ? ESCAPE '!'";
     public static final String SQL_FIND_USER_BY_NAME = "SELECT * FROM user WHERE name LIKE ?";
+    public static final String SQL_FIND_USER_BY_TEAM_ID = "SELECT * FROM user WHERE team_id LIKE ?";
+    public static final String SQL_FIND_ADMINISTRATOR_BY_ID = "SELECT * FROM administrator WHERE administrator_id LIKE ?";
+    public static final String SQL_FIND_TASK_BY_NAME = "SELECT * FROM task WHERE name LIKE ? ESCAPE '!'";
 
     //--------------------------------------------------------
 
@@ -44,11 +47,17 @@ public class SQLConstance {
     public static final String SQL_ADD_TASK_TO_USER = "INSERT INTO user_has_task (user_id, task_id) VALUES (?, ?)";
     public static final String SQL_ADD_NEW_TASK = "INSERT INTO task (name, deadline, about, activity_type_id, administrator_id) VALUES (?, ?, ?, ?, ?)";
     public static final String SQL_ADD_NEW_TEAM = "INSERT INTO team (name, company, description, administrator_id) VALUES (?, ?, ?, ?)";
-    public static final String SQL_ADD_NEW_REQUEST = "INSERT INTO users_teams (user_id, team_id) VALUES (?, ?)";
+    public static final String SQL_ADD_NEW_REQUEST = "INSERT INTO request (about, activity_type_id, administrator_id, user_id) VALUES (?, ?, ?, ?)";
     public static final String SQL_ADD_NEW_ACTIVITY_TYPE = "INSERT INTO activity_type (name, about, administrator_id) VALUES (?, ?, ?)";
 
     //--------------------------------------------------------
 
-    public static final String SQL_DELETE_TEAM = "DELETE FROM teams WHERE name=?";
-
+    public static final String SQL_DELETE_TEAM = "DELETE FROM team WHERE team_id=?";
+    public static final String SQL_DELETE_ACTIVITY = "DELETE FROM activity_type WHERE activity_id=?";
+    public static final String SQL_DELETE_REQUEST = "DELETE FROM request WHERE request_id=?";
+    public static final String SQL_DELETE_TASK = "DELETE FROM task WHERE task_id=?";
+    public static final String SQL_DELETE_USER_HAS_TASK_USER = "DELETE FROM user_has_task WHERE user_id=?";
+    public static final String SQL_DELETE_USER_HAS_TASK_TASK = "DELETE FROM user_has_task WHERE task_id=?";
+    public static final String SQL_DELETE_USER = "DELETE FROM user WHERE user_id=?";
+    public static final String SQL_DELETE_REQUEST_FOR_USER = "DELETE FROM request WHERE user_id=?";
 }

@@ -21,7 +21,7 @@
 </head>
 <body>
 <main>
-    <form method="post" action="register">
+    <form method="post" action="add_request">
         <h1>Add Request</h1>
         <div>
             <%--@declare id="activity_type"--%><label for="activity_type">Activity type<b> *</b></label>

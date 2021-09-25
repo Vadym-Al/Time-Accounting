@@ -77,4 +77,15 @@ public class ActivityManager {
         }
         return activity;
     }
+
+    public static void deleteActivity(Connection connection, long id) throws SQLException{
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_ACTIVITY);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
 }

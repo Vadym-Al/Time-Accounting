@@ -31,8 +31,8 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         try {
-            if (dbManager.searchUserByEmail(req.getParameter(SQL_EMAIL)).getEmail() != null) {
-                User user = dbManager.searchUserByEmail(req.getParameter(SQL_EMAIL));
+            if (dbManager.searchUserByEmail(req.getParameter(EMAIL)).getEmail() != null) {
+                User user = dbManager.searchUserByEmail(req.getParameter(EMAIL));
                 if (user.getPassword().equals(password)) {
                     String customer = user.getName() + " " + user.getLastName();
                     req.setAttribute("user", customer);
@@ -44,11 +44,11 @@ public class LoginServlet extends HttpServlet {
 
                     getServletContext().getRequestDispatcher(PROFILE_PAGE).forward(req, resp);
                 } else {
-                    req.setAttribute(SQL_ERROR, true);
+                    req.setAttribute(ERROR, true);
                     getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(req, resp);
                 }
-            } else if (dbManager.searchAdminByEmail(req.getParameter(SQL_EMAIL)).getEmail() != null) {
-                Administrator administrator = dbManager.searchAdminByEmail(req.getParameter(SQL_EMAIL));
+            } else if (dbManager.searchAdminByEmail(req.getParameter(EMAIL)).getEmail() != null) {
+                Administrator administrator = dbManager.searchAdminByEmail(req.getParameter(EMAIL));
                 if (administrator.getPassword().equals(password)) {
                     String user = administrator.getName() + " " + administrator.getLastName();
                     req.setAttribute("user", user);
@@ -60,11 +60,11 @@ public class LoginServlet extends HttpServlet {
 
                     getServletContext().getRequestDispatcher(PROFILE_PAGE).forward(req, resp);
                 } else {
-                    req.setAttribute(SQL_ERROR, true);
+                    req.setAttribute(ERROR, true);
                     getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(req, resp);
                 }
             } else {
-                req.setAttribute(SQL_ERROR, true);
+                req.setAttribute(ERROR, true);
                 getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(req, resp);
             }
         } catch (DBException | ServletException | IOException e) {

@@ -31,32 +31,32 @@ public class Utils {
 
     public static Administrator mapAdministrator(ResultSet rs) throws SQLException {
         Administrator administrator = new Administrator();
-        administrator.setAdminId(rs.getLong(SQL_ADMINISTRATOR_ID));
-        administrator.setName(rs.getString(SQL_NAME));
-        administrator.setLastName(rs.getString(SQL_LAST_NAME));
-        administrator.setPassword(rs.getString(SQL_PASSWORD));
-        administrator.setEmail(rs.getString(SQL_EMAIL));
-        administrator.setCompany(rs.getString(SQL_COMPANY));
-        administrator.setPhoneNumber(rs.getString(SQL_PHONE_NUMBER));
-        administrator.setCreateTime(rs.getTimestamp(SQL_CREATE_TIME));
+        administrator.setAdminId(rs.getLong(ADMINISTRATOR_ID));
+        administrator.setName(rs.getString(NAME));
+        administrator.setLastName(rs.getString(LAST_NAME));
+        administrator.setPassword(rs.getString(PASSWORD));
+        administrator.setEmail(rs.getString(EMAIL));
+        administrator.setCompany(rs.getString(COMPANY));
+        administrator.setPhoneNumber(rs.getString(PHONE_NUMBER));
+        administrator.setCreateTime(rs.getTimestamp(CREATE_TIME));
         return administrator;
     }
 
     public static Activity mapActivity(ResultSet rs) throws SQLException {
         Activity activity = new Activity();
-        activity.setActivityId(rs.getLong(SQL_ACTIVITY_ID));
-        activity.setName(rs.getString(SQL_NAME));
-        activity.setAbout(rs.getString(SQL_ABOUT));
-        activity.setAdministratorId(rs.getLong(SQL_ADMINISTRATOR_ID));
+        activity.setActivityId(rs.getLong(ACTIVITY_ID));
+        activity.setName(rs.getString(NAME));
+        activity.setAbout(rs.getString(ABOUT));
+        activity.setAdministratorId(rs.getLong(ADMINISTRATOR_ID));
         return activity;
     }
 
     public static Request mapRequest(ResultSet rs) throws SQLException {
         Request request = new Request();
         request.setRequestId(rs.getLong("request_id"));
-        request.setAbout(rs.getString(SQL_ABOUT));
+        request.setAbout(rs.getString(ABOUT));
         request.setActivityId(rs.getLong("activity_type_id"));
-        request.setAdministratorId(rs.getLong(SQL_ADMINISTRATOR_ID));
+        request.setAdministratorId(rs.getLong(ADMINISTRATOR_ID));
         request.setUserId(rs.getLong("user_id"));
         return request;
     }
@@ -64,38 +64,38 @@ public class Utils {
     public static Task mapTask(ResultSet rs) throws SQLException {
         Task task = new Task();
         task.setTaskId(rs.getLong("task_id"));
-        task.setName(rs.getString(SQL_NAME));
+        task.setName(rs.getString(NAME));
         task.setDeadline(rs.getDate("deadline"));
-        task.setAbout(rs.getString(SQL_ABOUT));
+        task.setAbout(rs.getString(ABOUT));
         task.setWastedTime(rs.getTime("wasted_time"));
-        task.setCreateTime(rs.getTimestamp(SQL_CREATE_TIME));
+        task.setCreateTime(rs.getTimestamp(CREATE_TIME));
         task.setActivityType(rs.getLong("activity_type_id"));
-        task.setAdministratorId(rs.getLong(SQL_ADMINISTRATOR_ID));
+        task.setAdministratorId(rs.getLong(ADMINISTRATOR_ID));
         return task;
     }
 
     public static Team mapTeam(ResultSet rs) throws SQLException {
         Team team = new Team();
-        team.setTeamId(rs.getLong(SQL_TEAM_ID));
-        team.setName(rs.getString(SQL_NAME));
-        team.setCompany(rs.getString(SQL_COMPANY));
+        team.setTeamId(rs.getLong(TEAM_ID));
+        team.setName(rs.getString(NAME));
+        team.setCompany(rs.getString(COMPANY));
         team.setDescription(rs.getString("description"));
-        team.setAdministratorId(rs.getLong(SQL_ADMINISTRATOR_ID));
+        team.setAdministratorId(rs.getLong(ADMINISTRATOR_ID));
         return team;
     }
 
     public static User mapUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setUserId(rs.getLong("user_id"));
-        user.setName(rs.getString(SQL_NAME));
-        user.setLastName(rs.getString(SQL_LAST_NAME));
-        user.setPassword(rs.getString(SQL_PASSWORD));
-        user.setEmail(rs.getString(SQL_EMAIL));
-        user.setPhoneNumber(rs.getString(SQL_PHONE_NUMBER));
-        user.setCompany(rs.getString(SQL_COMPANY));
-        user.setCreateTime(rs.getTimestamp(SQL_CREATE_TIME));
-        user.setTeamId(rs.getLong(SQL_TEAM_ID));
-        user.setAdministratorId(rs.getLong(SQL_ADMINISTRATOR_ID));
+        user.setName(rs.getString(NAME));
+        user.setLastName(rs.getString(LAST_NAME));
+        user.setPassword(rs.getString(PASSWORD));
+        user.setEmail(rs.getString(EMAIL));
+        user.setPhoneNumber(rs.getString(PHONE_NUMBER));
+        user.setCompany(rs.getString(COMPANY));
+        user.setCreateTime(rs.getTimestamp(CREATE_TIME));
+        user.setTeamId(rs.getLong(TEAM_ID));
+        user.setAdministratorId(rs.getLong(ADMINISTRATOR_ID));
         return user;
     }
 }

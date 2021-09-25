@@ -48,7 +48,7 @@ public class AddTeamServlet extends HttpServlet {
                 req.setAttribute("head", "Teams");
                 req.setAttribute("isTeam", "True");
 
-                getServletContext().getRequestDispatcher("mainAdmin.jsp").forward(req, resp);
+                getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
             }
         } catch (ServletException | IOException | DBException e) {
             logger.error("Error when add team", e);

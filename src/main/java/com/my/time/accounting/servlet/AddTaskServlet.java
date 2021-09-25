@@ -38,8 +38,7 @@ public class AddTaskServlet extends HttpServlet {
                 activityType,
                 adminId);
         try {
-            /// to do !!
-            if (activityType == 0){
+            if (task.equals(dbManager.searchTaskByName(req.getParameter("name")))){
                 req.setAttribute("error", true);
                 try {
                     getServletContext().getRequestDispatcher("/addTasks.jsp").forward(req,resp);
@@ -55,7 +54,7 @@ public class AddTaskServlet extends HttpServlet {
                 req.setAttribute("customers", dbManager.getAllTasksForAdmin((String) session.getAttribute("email")));
                 req.setAttribute("isTask", "True");
 
-                getServletContext().getRequestDispatcher("mainAdmin.jsp").forward(req,resp);
+                getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req,resp);
             }
         } catch (DBException | IOException | ServletException e) {
             logger.error("Error in adding user", e);

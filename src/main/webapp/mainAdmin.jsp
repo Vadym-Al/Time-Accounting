@@ -71,7 +71,7 @@
     <div class="d-flex flex-wrap">
         <c:if test="${isTeam == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" action="#">
+                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} team will be deleted?");' action="delete?id=${customer.teamId}&type=Team">
                     <div>
                         <h1><c:out value="${customer.name}"/></h1>
                         <br>
@@ -83,13 +83,13 @@
                             value="${customer.description}"/></label>
                     </div>
                     <br>
-                    <button type="submit">Edit</button>
+                    <button type="submit">Delete</button>
                 </form>
             </c:forEach>
         </c:if>
         <c:if test="${isActivity == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" action="#">
+                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} activity will be deleted?");' action="delete?id=${customer.activityId}&type=Activity">
                     <div>
                         <h1><c:out value="${customer.name}"/></h1>
                         <br>
@@ -99,13 +99,13 @@
                             value="${customer.about}"/></label>
                     </div>
                     <br>
-                    <button type="submit">Edit</button>
+                    <button type="submit">Delete</button>
                 </form>
             </c:forEach>
         </c:if>
         <c:if test="${isTask == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" action="#">
+                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} task will be deleted?");' action="delete?id=${customer.taskId}&type=Task">
                     <div>
                         <h1><c:out value="${customer.name}"/></h1>
                         <br>
@@ -120,13 +120,13 @@
 
                     </div>
                     <br>
-                    <button type="submit">Edit</button>
+                    <button type="submit">Delete</button>
                 </form>
             </c:forEach>
         </c:if>
         <c:if test="${isUser == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" action="#">
+                <form method="post" onSubmit='return confirm("Are you sure, ${customer.name} will be deleted?");' action="delete?id=${customer.userId}&type=User">
                     <div>
                         <h1><c:out value="${customer.name} ${customer.lastName}"/></h1>
                         <br>
@@ -140,25 +140,19 @@
                             value="${customer.phoneNumber}"/></label>
                     </div>
                     <br>
-                    <button type="submit">Edit</button>
+                    <button type="submit">Delete</button>
                 </form>
             </c:forEach>
         </c:if>
         <c:if test="${isRequest == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" action="#">
-                    <div>
-                        <h1><c:out value="${customer.name}"/></h1>
-                        <br>
-                    </div>
+                <form method="post" onSubmit='return confirm("Are you sure, Yo want to confirm this request?");' action="#">
                     <div>
                             <%--@declare id="about"--%><label for="about">About: <c:out
                             value="${customer.about}"/></label>
-                            <%--@declare id="activity"--%><label for="activity">Activity: <c:out
-                            value="${customer.activity}"/></label>
                     </div>
                     <br>
-                    <button type="submit">Edit</button>
+                    <button type="submit">Confirm</button>
                 </form>
             </c:forEach>
         </c:if>

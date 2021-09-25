@@ -81,7 +81,6 @@
                             value="${customer.description}"/></label>
                     </div>
                     <br>
-                    <button type="submit">Edit</button>
                 </form>
             </c:forEach>
         </c:if>
@@ -99,6 +98,9 @@
                             value="${customer.about}"/></label>
                             <%--@declare id="wastedTime"--%><label for="wastedTime">Wasted Time: <c:out
                             value="${customer.wastedTime}"/></label>
+                                <label>
+                                    <input type="time" name="wastedTime" required>
+                                </label>
 
                     </div>
                     <br>
@@ -108,19 +110,13 @@
         </c:if>
         <c:if test="${isRequest == true}">
             <c:forEach var="customer" items="${customers}">
-                <form method="post" action="#">
-                    <div>
-                        <h1><c:out value="${customer.name}"/></h1>
-                        <br>
-                    </div>
+                <form method="post" action="delete?id=${customer.userId}&type=Request">
                     <div>
                             <%--@declare id="about"--%><label for="about">About: <c:out
                             value="${customer.about}"/></label>
-                            <%--@declare id="activity"--%><label for="activity">Activity: <c:out
-                            value="${customer.activity}"/></label>
                     </div>
                     <br>
-                    <button type="submit">Edit</button>
+                    <button type="submit">Delete</button>
                 </form>
             </c:forEach>
         </c:if>
