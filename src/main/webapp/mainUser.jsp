@@ -31,6 +31,7 @@
         <ul class="nav">
             <li><a class="link" href="show_context?page=Teams">Teams</a></li>
             <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
+            <li><a class="link" href="show_context?page=Activities">Activities</a></li>
             <li><a class="link" href="show_context?page=Requests">Requests</a></li>
             <li><a class="link" href="#"><select>
                 <option onclick="">English</option>
@@ -39,7 +40,7 @@
             </select></a></li>
         </ul>
         <ul class="nav">
-            <li><a class="link" href="index.jsp">Sign out</a></li>
+            <li><a class="link" href="logout">Sign out</a></li>
         </ul>
         <ul class="nav icon">
             <li><a class="link" href="profile"><i>${requestScope.user}</i></a></li>
@@ -53,14 +54,6 @@
         <div class="logic_menu">
             <ul class="logic_nav">
                 <li><a class="link" href="redirect?head=${requestScope.head}">Add</a></li>
-            </ul>
-            <ul class="logic_nav logic_icon">
-                <li><a class="link" href="#"><select>
-                    <option onclick="">English</option>
-                    <option>Russian</option>
-                    <option>French</option>
-                </select></a></li>
-                <li><a class="link" href="index.jsp">Sort</a></li>
             </ul>
         </div>
     </c:if>
@@ -79,6 +72,21 @@
                             value="${customer.company}"/></label>
                             <%--@declare id="description"--%><label for="description">Description: <c:out
                             value="${customer.description}"/></label>
+                    </div>
+                    <br>
+                </form>
+            </c:forEach>
+        </c:if>
+        <c:if test="${isActivity == true}">
+            <c:forEach var="customer" items="${customers}">
+                <form method="post" action="#">
+                    <div>
+                        <h1><c:out value="${customer.name}"/></h1>
+                        <br>
+                    </div>
+                    <div>
+                            <%--@declare id="about"--%><label for="about">About: <c:out
+                            value="${customer.about}"/></label>
                     </div>
                     <br>
                 </form>

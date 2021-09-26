@@ -2,7 +2,9 @@ package com.my.time.accounting.servlets;
 
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
+import com.my.time.accounting.entity.Administrator;
 import com.my.time.accounting.entity.Request;
+import com.my.time.accounting.entity.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -44,6 +46,7 @@ public class ShowContentServlet extends HttpServlet {
                         req.setAttribute("isActivity", true);
                         break;
                     case "Tasks":
+                        req.setAttribute("activity", dbManager.getAllActivitiesForAdmin((String) session.getAttribute("email")));
                         req.setAttribute(CUSTOMERS, dbManager.getAllTasksForAdmin((String) session.getAttribute("email")));
                         req.setAttribute("head", "Tasks");
                         req.setAttribute("isTask", true);
@@ -75,6 +78,13 @@ public class ShowContentServlet extends HttpServlet {
                         req.setAttribute(CUSTOMERS, dbManager.getAllTasksForUser((String) session.getAttribute("email")));
                         req.setAttribute("head", "Tasks");
                         req.setAttribute("isTask", true);
+                        break;
+                    case "Activities":
+                        User user = dbManager.searchUserByEmail((String) session.getAttribute("email"));
+                        Administrator administrator = dbManager.searchAdminById(user.getAdministratorId());
+                        req.setAttribute(CUSTOMERS, dbManager.getAllActivitiesForAdmin(administrator.getEmail()));
+                        req.setAttribute("head", "Activities");
+                        req.setAttribute("isActivity", true);
                         break;
                     case "Requests":
                         List<Request> list = dbManager.getAllRequestsForUser((String) session.getAttribute("email"));

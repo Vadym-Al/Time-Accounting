@@ -41,7 +41,7 @@
             </select></a></li>
         </ul>
         <ul class="nav">
-            <li><a class="link" href="index.jsp">Sign out</a></li>
+            <li><a class="link" href="logout">Sign out</a></li>
         </ul>
         <ul class="nav icon">
             <li><a class="link" href="profile"><i>${requestScope.user}</i></a></li>
@@ -50,26 +50,38 @@
     </div>
 </div>
 <form style="background: none" action="sort" method="get">
-<div class="logic_bar">
-    <div class="main_event">${requestScope.head}</div>
-    <c:if test="${requestScope.isRequest!=true}">
-        <div class="logic_menu">
-        <c:if test="${isTask == true}">
-            <ul class="logic_nav logic_icon">
-                <li><select style="text-align: right" name="sort_param">
-                    <option onclick="">Name</option>
-                    <option>Activity type</option>
-                    <option>By deadline</option>
-                </select></li>
-                <li><a class="link"><input class="link" style="font-size: 17px; background: none; border: none;" type="submit" name="submit" value="Sort"/></a></li>
-            </ul>
+    <div class="logic_bar">
+        <div class="main_event">${requestScope.head}</div>
+        <c:if test="${requestScope.isRequest!=true}">
+            <div class="logic_menu">
+                <c:if test="${isTask == true}">
+                    <ul class="logic_nav logic_icon">
+                        <li>
+                            <select style="text-align: right" name="filter_param">
+                                <c:forEach var="activity" items="${activity}">
+                                    <option><c:out value="${activity.name}"/></option>
+                                </c:forEach>
+                            </select>
+                        </li>
+                        <li><a class="link"><input class="link" style="font-size: 17px; background: none; border: none;"
+                                                   type="submit" name="submit" value="Filter"/></a></li>
+                    </ul>
+                    <ul class="logic_nav logic_icon">
+                        <li><select style="text-align: right" name="sort_param">
+                            <option onclick="">Name</option>
+                            <option>Activity type</option>
+                            <option>By deadline</option>
+                        </select></li>
+                        <li><a class="link"><input class="link" style="font-size: 17px; background: none; border: none;"
+                                                   type="submit" name="submit" value="Sort"/></a></li>
+                    </ul>
+                </c:if>
+                <ul class="logic_nav">
+                    <li><a class="link" href="redirect?head=${requestScope.head}">Add</a></li>
+                </ul>
+            </div>
         </c:if>
-            <ul class="logic_nav">
-                <li><a class="link" href="redirect?head=${requestScope.head}">Add</a></li>
-            </ul>
-        </div>
-    </c:if>
-</div>
+    </div>
 </form>
 <main>
     <div class="d-flex flex-wrap">

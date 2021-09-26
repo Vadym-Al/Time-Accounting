@@ -40,13 +40,14 @@
                 </select></a></li>
             </ul>
             <ul class="nav">
-                <li><a class="link" href="index.jsp">Sign out</a></li>
+                <li><a class="link" href="logout">Sign out</a></li>
             </ul>
         </c:if>
         <c:if test="${requestScope.isAdmin == false}">
             <ul class="nav">
                 <li><a class="link" href="show_context?page=Teams">Teams</a></li>
                 <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
+                <li><a class="link" href="show_context?page=Activities">Activities</a></li>
                 <li><a class="link" href="show_context?page=Requests">Requests</a></li>
                 <li><a class="link" href="#"><select>
                     <option onclick="">English</option>
@@ -55,7 +56,7 @@
                 </select></a></li>
             </ul>
             <ul class="nav">
-                <li><a class="link" href="index.jsp">Sign out</a></li>
+                <li><a class="link" href="logout">Sign out</a></li>
             </ul>
         </c:if>
         <ul class="nav icon">
