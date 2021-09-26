@@ -34,7 +34,7 @@ public class ConfirmServlet extends HttpServlet {
         try {
             Task task = Task.createTask(dbManager.searchActivityById(request.getActivityId()).getName(),
                     Date.valueOf(req.getParameter("deadline")),
-                    "",
+                    dbManager.searchUserByEmail((String) session.getAttribute("email")).getName(),
                     request.getActivityId(),
                     request.getAdministratorId());
 

@@ -24,12 +24,6 @@
     <form method="post" action="add_task">
         <h1>Add Task</h1>
         <div>
-            <%--@declare id="name"--%><label for="name">Name<b> *</b></label>
-            <label>
-                <input type="text" name="name" required>
-            </label>
-        </div>
-        <div>
             <%--@declare id="dead_line"--%><label for="dead_line">Dead Line<b> *</b></label>
             <label>
                 <input type="date" name="dead_line" required>
@@ -48,17 +42,12 @@
         <div>
             <%--@declare id="users_name"--%><label for="users_name">User Name<b> *</b></label>
             <label>
-                <select name="users_name">
+                <input type="text" name="users_name" list="lst">
+                <datalist id="lst">
                     <c:forEach var="users_name" items="${users}">
                         <option><c:out value="${users_name.name}"/></option>
                     </c:forEach>
-                </select>
-            </label>
-        </div>
-        <div>
-            <%--@declare id="about"--%><label for="about">About</label>
-            <label>
-                <input type="text" name="about">
+                </datalist>
             </label>
         </div>
         <c:if test="${requestScope.error == true}">

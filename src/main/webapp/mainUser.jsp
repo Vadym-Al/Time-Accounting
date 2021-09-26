@@ -110,6 +110,10 @@
             <c:forEach var="customer" items="${customers}">
                 <form method="post" action="delete?id=${customer.userId}&type=Request">
                     <div>
+                        <h1><c:out value="${customer.activityName}"/></h1>
+                        <br>
+                    </div>
+                    <div>
                             <%--@declare id="about"--%><label for="about">About: <c:out
                             value="${customer.about}"/></label>
                     </div>

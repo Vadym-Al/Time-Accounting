@@ -2,6 +2,7 @@ package com.my.time.accounting.servlets;
 
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
+import com.my.time.accounting.entity.Request;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/show_context")
 public class ShowContentServlet extends HttpServlet {
@@ -47,7 +49,11 @@ public class ShowContentServlet extends HttpServlet {
                         req.setAttribute("isTask", true);
                         break;
                     case "Requests":
-                        req.setAttribute(CUSTOMERS, dbManager.getAllRequestsForAdmin((String) session.getAttribute("email")));
+                        List<Request> list = dbManager.getAllRequestsForAdmin((String) session.getAttribute("email"));
+                        for (Request request: list){
+                            request.setActivityName(dbManager.searchActivityById(request.getActivityId()).getName());
+                        }
+                        req.setAttribute(CUSTOMERS, list);
                         req.setAttribute("head", "Requests");
                         req.setAttribute("isRequest", true);
                         break;
@@ -71,7 +77,11 @@ public class ShowContentServlet extends HttpServlet {
                         req.setAttribute("isTask", true);
                         break;
                     case "Requests":
-                        req.setAttribute(CUSTOMERS, dbManager.getAllRequestsForUser((String) session.getAttribute("email")));
+                        List<Request> list = dbManager.getAllRequestsForUser((String) session.getAttribute("email"));
+                        for (Request request: list){
+                            request.setActivityName(dbManager.searchActivityById(request.getActivityId()).getName());
+                        }
+                        req.setAttribute(CUSTOMERS, list);
                         req.setAttribute("head", "Requests");
                         req.setAttribute("isRequest", true);
                         break;

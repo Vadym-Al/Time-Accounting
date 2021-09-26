@@ -2,6 +2,7 @@ package com.my.time.accounting.servlets;
 
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
+import com.my.time.accounting.entity.Activity;
 import com.my.time.accounting.entity.Task;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 @WebServlet("/add_task")
 public class AddTaskServlet extends HttpServlet {
@@ -25,37 +27,31 @@ public class AddTaskServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         long adminId = 0;
-        long activityType = 0;
+        Activity activity = null;
         try {
             adminId = dbManager.searchAdminByEmail((String) session.getAttribute("email")).getAdminId();
-            activityType = dbManager.searchActivityByName(req.getParameter("activity_type")).getActivityId();
+            activity = dbManager.searchActivityByName(req.getParameter("activity_type"));
         } catch (DBException e) {
             logger.error("Can not find id", e);
         }
-        Task task = Task.createTask(req.getParameter("name"),
+        Task task = Task.createTask(activity.getName(),
                 Date.valueOf(req.getParameter("dead_line")),
-                req.getParameter("about"),
-                activityType,
+                "",
+                activity.getActivityId(),
                 adminId);
         try {
-            if (task.equals(dbManager.searchTaskByName(req.getParameter("name")))){
-                req.setAttribute("error", true);
-                try {
-                    getServletContext().getRequestDispatcher("/addTasks.jsp").forward(req,resp);
-                } catch (ServletException | IOException e) {
-                    logger.error("Error in adding user", e);
-                }
-            }else{
-                dbManager.insertTaskForUser(task, req.getParameter("users_name"));
-
-                req.setAttribute("user", session.getAttribute("user"));
-                req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
-                req.setAttribute("head", "Tasks");
-                req.setAttribute("customers", dbManager.getAllTasksForAdmin((String) session.getAttribute("email")));
-                req.setAttribute("isTask", "True");
-
-                getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req,resp);
+            String[] list = req.getParameter("users_name").split(",");
+            for (String name : list) {
+                task.setAbout(name);
+                dbManager.insertTaskForUser(task, name.trim());
             }
+            req.setAttribute("user", session.getAttribute("user"));
+            req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
+            req.setAttribute("head", "Tasks");
+            req.setAttribute("customers", dbManager.getAllTasksForAdmin((String) session.getAttribute("email")));
+            req.setAttribute("isTask", "True");
+
+            getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
         } catch (DBException | IOException | ServletException e) {
             logger.error("Error in adding user", e);
         }

@@ -84,7 +84,6 @@
                 <%--@declare id="createTime"--%><label for="createTime">Create Time: <c:out value="${customer.createTime}"/></label>
         </div>
         <br>
-        <button type="submit">Edit</button>
     </form>
     </c:forEach>
 </main>

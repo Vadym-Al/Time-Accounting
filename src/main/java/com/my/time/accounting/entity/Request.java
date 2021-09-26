@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Request {
     private long requestId;
+    private String activityName;
     private String about;
     private long activityId;
     private long administratorId;
@@ -16,6 +17,14 @@ public class Request {
         request.setAdministratorId(administratorId);
         request.setUserId(userId);
         return request;
+    }
+
+    public String getActivityName() {
+        return activityName;
+    }
+
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
     }
 
     public long getRequestId() {

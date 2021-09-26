@@ -49,24 +49,28 @@
         </ul>
     </div>
 </div>
+<form style="background: none" action="sort" method="get">
 <div class="logic_bar">
     <div class="main_event">${requestScope.head}</div>
     <c:if test="${requestScope.isRequest!=true}">
         <div class="logic_menu">
+        <c:if test="${isTask == true}">
+            <ul class="logic_nav logic_icon">
+                <li><select style="text-align: right" name="sort_param">
+                    <option onclick="">Name</option>
+                    <option>Activity type</option>
+                    <option>By deadline</option>
+                </select></li>
+                <li><a class="link"><input class="link" style="font-size: 17px; background: none; border: none;" type="submit" name="submit" value="Sort"/></a></li>
+            </ul>
+        </c:if>
             <ul class="logic_nav">
                 <li><a class="link" href="redirect?head=${requestScope.head}">Add</a></li>
-            </ul>
-            <ul class="logic_nav logic_icon">
-                <li><a class="link" href="#"><select>
-                    <option onclick="">English</option>
-                    <option>Russian</option>
-                    <option>French</option>
-                </select></a></li>
-                <li><a class="link" href="index.jsp">Sort</a></li>
             </ul>
         </div>
     </c:if>
 </div>
+</form>
 <main>
     <div class="d-flex flex-wrap">
         <c:if test="${isTeam == true}">
@@ -117,11 +121,10 @@
                     <div>
                             <%--@declare id="deadline"--%><label for="deadline">Dead Line: <c:out
                             value="${customer.deadline}"/></label>
-                            <%--@declare id="about"--%><label for="about">Description: <c:out
+                            <%--@declare id="about"--%><label for="about">Owner: <c:out
                             value="${customer.about}"/></label>
                             <%--@declare id="wastedTime"--%><label for="wastedTime">Wasted Time: <c:out
                             value="${customer.wastedTime}"/></label>
-
                     </div>
                     <br>
                     <button type="submit">Delete</button>
@@ -154,11 +157,15 @@
                 <form method="post" onSubmit='return confirm("Are you sure, Yo want to confirm this request?");'
                       action="confirm?id=${customer.requestId}">
                     <div>
+                        <h1><c:out value="${customer.activityName}"/></h1>
+                        <br>
+                    </div>
+                    <div>
                             <%--@declare id="about"--%><label for="about">About: <c:out
                             value="${customer.about}"/></label>
                             <%--@declare id="deadline"--%><label for="deadline">Dead Line: <input type="date"
-                                                                                                        name="deadline"
-                                                                                                        required></label>
+                                                                                                  name="deadline"
+                                                                                                  required></label>
                     </div>
                     <br>
                     <button type="submit">Confirm</button>
