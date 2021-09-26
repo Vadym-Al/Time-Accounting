@@ -4,7 +4,6 @@ import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
 import com.my.time.accounting.entity.Request;
 import com.my.time.accounting.entity.Task;
-import com.my.time.accounting.entity.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

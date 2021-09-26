@@ -96,7 +96,7 @@
                             value="${customer.deadline}"/></label>
                             <%--@declare id="about"--%><label for="about">Description: <c:out
                             value="${customer.about}"/></label>
-                            <%--@declare id="wastedTime"--%><label for="wastedTime">Wasted Time: <input type="time"
+                            <%--@declare id="wasted_time"--%><label for="wasted_time">Wasted Time: <input type="time"
                                                                                                         name="wastedTime"
                                                                                                         value="${customer.wastedTime}"
                                                                                                         required></label>
