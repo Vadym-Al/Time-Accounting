@@ -14,7 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+/**
+ * Servlet that implements functionality of redirect information to adding pages
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/redirect")
 public class RedirectServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(RedirectServlet.class);

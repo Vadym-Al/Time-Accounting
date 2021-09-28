@@ -1,5 +1,11 @@
 package com.my.time.accounting.database;
 
+/**
+ * Class exception for database methods
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class DBException extends Exception{
     public DBException() {
         super();

@@ -3,6 +3,12 @@ package com.my.time.accounting.entity;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * Class that enterprise database table in entity
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class User {
     private long userId;
     private String name;
@@ -15,6 +21,18 @@ public class User {
     private long teamId;
     private long administratorId;
 
+    /**
+     * Method of creation user
+     * @param name - user name
+     * @param lastName - user last name
+     * @param password - account password
+     * @param email - user email
+     * @param phoneNumber - phone number
+     * @param company - user company
+     * @param teamId - team id
+     * @param administratorId - administrator id
+     * @return created user
+     */
     public static User createUser(String name, String lastName, String password, String email, String phoneNumber, String company, long teamId, long administratorId){
         User user = new User();
         user.setName(name);

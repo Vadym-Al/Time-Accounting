@@ -10,9 +10,25 @@ import java.util.List;
 import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
+/**
+ * Class that contains instructions of processing information about users in data base
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class UserManager {
+    /**
+     * private constructor
+     * @see UserManager#UserManager()
+     */
     private UserManager(){}
 
+    /**
+     * Instruction of inserting User to database
+     * @param connection - connection with database
+     * @param user - data base entity
+     * @throws SQLException - possible exception
+     */
     public static void insertUser(Connection connection, User user) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -42,6 +58,13 @@ public class UserManager {
         }
     }
 
+    /**
+     * Instruction of getting all users from database for admin
+     * @param connection - connection with database
+     * @param administrator - person that take data
+     * @return list of users for administrator
+     * @throws SQLException - possible exception
+     */
     public static List<User> getAllUsersForAdmin(Connection connection, Administrator administrator) throws SQLException {
         List<User> users = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -63,6 +86,13 @@ public class UserManager {
         return users;
     }
 
+    /**
+     * Instruction of searching user by email
+     * @param connection - connection with database
+     * @param email - user email
+     * @return user from database
+     * @throws SQLException - possible exception
+     */
     public static User searchUserByEmail(Connection connection, String email) throws SQLException {
         User user = new User();
         PreparedStatement pstmt = null;
@@ -83,6 +113,14 @@ public class UserManager {
         }
         return user;
     }
+
+    /**
+     * Instruction of searching user by name
+     * @param connection - connection with database
+     * @param name - name of user
+     * @return user from database
+     * @throws SQLException - possible exception
+     */
     public static User searchUserByName(Connection connection, String name) throws SQLException {
         User user = new User();
         PreparedStatement pstmt = null;
@@ -103,6 +141,13 @@ public class UserManager {
         return user;
     }
 
+    /**
+     * Instruction of searching user by id
+     * @param connection - connection with database
+     * @param id - user id
+     * @return user from database
+     * @throws SQLException - possible exception
+     */
     public static User searchUserById(Connection connection, long id) throws SQLException {
         User user = new User();
         PreparedStatement pstmt = null;
@@ -123,6 +168,13 @@ public class UserManager {
         return user;
     }
 
+    /**
+     * Instruction of searching user by team id
+     * @param connection - connection with database
+     * @param id - team id
+     * @return list of users from database
+     * @throws SQLException - possible exception
+     */
     public static List<User> searchUserByTeamId(Connection connection, long id) throws SQLException {
         List<User> users = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -143,6 +195,12 @@ public class UserManager {
         return users;
     }
 
+    /**
+     * Instruction of deleting user from database
+     * @param connection - connection with database
+     * @param id - user id
+     * @throws SQLException - possible exception
+     */
     public static void deleteUser(Connection connection, long id) throws SQLException{
         PreparedStatement pstmt = null;
         try {
@@ -154,6 +212,12 @@ public class UserManager {
         }
     }
 
+    /**
+     * Instruction of deleting user from database user has task
+     * @param connection - connection with database
+     * @param id - user id
+     * @throws SQLException - possible exception
+     */
     public static void deleteUserHasTask(Connection connection, long id) throws SQLException{
         PreparedStatement pstmt = null;
         try {

@@ -1,7 +1,6 @@
 package com.my.time.accounting.database.managers;
 
 import com.my.time.accounting.entity.Task;
-import com.my.time.accounting.entity.Team;
 import com.my.time.accounting.entity.User;
 
 import java.sql.*;
@@ -11,10 +10,22 @@ import java.util.List;
 import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
+/**
+ * Class that contains instructions of processing information about tasks in data base
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class TaskManager {
     private TaskManager() {
     }
 
+    /**
+     * Instruction of inserting task to database
+     * @param connection - connection with database
+     * @param task - data base entity
+     * @throws SQLException - possible exception
+     */
     public static void insertTask(Connection connection, Task task) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -41,6 +52,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Instruction of getting tasks from database
+     * @param connection - connection with database
+     * @param id - task id
+     * @return task from database
+     * @throws SQLException - possible exception
+     */
     public static Task getTasksForUserById(Connection connection, long id) throws SQLException {
         Task task = new Task();
         PreparedStatement pstmt = null;
@@ -60,6 +78,13 @@ public class TaskManager {
         return task;
     }
 
+    /**
+     * Instruction of searching task by name
+     * @param connection - connection with database
+     * @param name - task name
+     * @return task from database
+     * @throws SQLException - possible exception
+     */
     public static Task searchTaskByName(Connection connection, String name) throws SQLException {
         Task task = new Task();
         PreparedStatement pstmt = null;
@@ -81,6 +106,13 @@ public class TaskManager {
         return task;
     }
 
+    /**
+     * Instruction of getting all task for user
+     * @param connection - connection with database
+     * @param id - user id
+     * @return list of numbers that belong to user
+     * @throws SQLException - possible exception
+     */
     public static List<Long> getListOfTasks(Connection connection, long id) throws SQLException {
         List<Long> list = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -100,6 +132,13 @@ public class TaskManager {
         return list;
     }
 
+    /**
+     * Instruction of changing parameter of task
+     * @param connection - connection with database
+     * @param id - task id
+     * @param time - mutable parameter
+     * @throws SQLException - possible exception
+     */
     public static void updateTask(Connection connection, long id, Time time) throws SQLException {
         PreparedStatement pstmt = null;
         try {
@@ -113,6 +152,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Instruction of appointing task for user
+     * @param connection - connection with database
+     * @param task - task that will be appoint
+     * @param user - user that will get task
+     * @throws SQLException - possible exception
+     */
     public static void setTask(Connection connection, Task task, User user) throws SQLException {
         PreparedStatement pstmt = null;
         try {
@@ -127,6 +173,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Instruction of deleting task from database
+     * @param connection - connection with database
+     * @param id task id
+     * @throws SQLException - possible exception
+     */
     public static void deleteTask(Connection connection, long id) throws SQLException{
         PreparedStatement pstmt = null;
         try {
@@ -138,6 +190,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Instruction of deleting task from user
+     * @param connection - connection with database
+     * @param id - user id
+     * @throws SQLException - possible exception
+     */
     public static void deleteUserHasTask(Connection connection, long id) throws SQLException{
         PreparedStatement pstmt = null;
         try {

@@ -14,12 +14,21 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Class that realise Singleton pattern and works with data base
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class DBManager {
     private final Logger logger = LogManager.getLogger(DBManager.class);
     private static DBManager dbManager;
     private final DataSource dataSource;
 
+    /**
+     * private constructor that initialize datasource
+     * @see DBManager#DBManager()
+     */
     private DBManager() {
         try {
             Context initContext = new InitialContext();
@@ -31,6 +40,10 @@ public class DBManager {
         }
     }
 
+    /**
+     * Method of getting db manager instance
+     * @return synchronized manager instance
+     */
     public static synchronized DBManager getInstance() {
         if (dbManager == null) {
             return new DBManager();
@@ -38,6 +51,11 @@ public class DBManager {
         return dbManager;
     }
 
+    /**
+     * Method getting connection from datasource
+     * @return connection
+     * @throws SQLException - possible exception
+     */
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
@@ -64,8 +82,8 @@ public class DBManager {
             connection = getConnection();
             user = UserManager.searchUserByEmail(connection, email);
         } catch (SQLException ex) {
-            logger.error("Can not find User", ex);
-            throw new DBException("Can not find USer", ex);
+            logger.error("Can not find User by email", ex);
+            throw new DBException("Can not find USer by email", ex);
         } finally {
             close(connection);
         }
@@ -79,8 +97,8 @@ public class DBManager {
             connection = getConnection();
             user = UserManager.searchUserById(connection, id);
         } catch (SQLException ex) {
-            logger.error("Can not find User", ex);
-            throw new DBException("Can not find USer", ex);
+            logger.error("Can not find User by id", ex);
+            throw new DBException("Can not find User by id", ex);
         } finally {
             close(connection);
         }
@@ -94,8 +112,8 @@ public class DBManager {
             connection = getConnection();
             team = TeamManager.searchTeamByName(connection, name);
         } catch (SQLException ex) {
-            logger.error("Can not find User", ex);
-            throw new DBException("Can not find User", ex);
+            logger.error("Can not find User by name", ex);
+            throw new DBException("Can not find User by name", ex);
         } finally {
             close(connection);
         }
@@ -109,8 +127,8 @@ public class DBManager {
             connection = getConnection();
             activity = ActivityManager.searchActivityByName(connection, name);
         } catch (SQLException ex) {
-            logger.error("Can not find User", ex);
-            throw new DBException("Can not find User", ex);
+            logger.error("Can not find Activity by name", ex);
+            throw new DBException("Can not find Activity by name", ex);
         } finally {
             close(connection);
         }
@@ -124,27 +142,12 @@ public class DBManager {
             connection = getConnection();
             activity = ActivityManager.searchActivityById(connection, id);
         } catch (SQLException ex) {
-            logger.error("Can not find User", ex);
-            throw new DBException("Can not find User", ex);
+            logger.error("Can not find Activity by id", ex);
+            throw new DBException("Can not find Activity by io", ex);
         } finally {
             close(connection);
         }
         return activity;
-    }
-
-    public Task searchTaskByName(String name) throws DBException {
-        Task task;
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            task = TaskManager.searchTaskByName(connection, name);
-        } catch (SQLException ex) {
-            logger.error("Can not find Task", ex);
-            throw new DBException("Can not find Task", ex);
-        } finally {
-            close(connection);
-        }
-        return task;
     }
 
     public void insertAdministrator(Administrator administrator) throws DBException {
@@ -189,6 +192,12 @@ public class DBManager {
         }
     }
 
+    /**
+     * Transaction of inserting new task for user
+     * @param task - task
+     * @param name - name of user
+     * @throws DBException - possible exception
+     */
     public void insertTaskForUser(Task task, String name) throws DBException {
         Connection connection = null;
         try {
@@ -203,7 +212,7 @@ public class DBManager {
                 assert connection != null;
                 connection.rollback();
             } catch (SQLException e) {
-                logger.error("Can not roll back", e);
+                logger.error("Can not roll back connection", e);
             }
             throw new DBException("Can not insert Task", ex);
         } finally {
@@ -378,8 +387,8 @@ public class DBManager {
             connection = getConnection();
             task = TaskManager.getTasksForUserById(connection, id);
         } catch (SQLException ex) {
-            logger.error("Can not get all Requests for user", ex);
-            throw new DBException("Can not get all Requests for user", ex);
+            logger.error("Can not get all Tasks by id", ex);
+            throw new DBException("Can not get all Tasks by id", ex);
         } finally {
             close(connection);
         }
@@ -393,8 +402,8 @@ public class DBManager {
             connection = getConnection();
             list = TaskManager.getListOfTasks(connection, user.getUserId());
         } catch (SQLException ex) {
-            logger.error("Can not get all Requests for user", ex);
-            throw new DBException("Can not get all Requests for user", ex);
+            logger.error("Can not get list of tasks", ex);
+            throw new DBException("Can not get list of tasks", ex);
         } finally {
             close(connection);
         }
@@ -422,8 +431,8 @@ public class DBManager {
             connection = getConnection();
             administrator = AdminManager.searchAdminById(connection, id);
         } catch (SQLException ex) {
-            logger.error("Can not get all Requests for user", ex);
-            throw new DBException("Can not get all Requests for user", ex);
+            logger.error("Can not find Admin by id", ex);
+            throw new DBException("Can not find Admin by id", ex);
         } finally {
             close(connection);
         }
@@ -473,6 +482,11 @@ public class DBManager {
         }
     }
 
+    /**
+     * Transaction that deleats all that connects with task
+     * @param id - task id
+     * @throws DBException - possible exception
+     */
     public void deleteTask(long id) throws DBException {
         Connection connection = null;
         try {
@@ -494,6 +508,11 @@ public class DBManager {
         }
     }
 
+    /**
+     * Transaction that deleats all that connects with user
+     * @param id - user id
+     * @throws DBException - possible exception
+     */
     public void deleteUser(long id) throws DBException {
         Connection connection = null;
         try {
@@ -520,6 +539,11 @@ public class DBManager {
         }
     }
 
+    /**
+     * Transaction that deleats all that connects with team
+     * @param id - team id
+     * @throws DBException - possible exception
+     */
     public void deleteTeam(long id) throws DBException {
         Connection connection = null;
         try {
@@ -531,14 +555,14 @@ public class DBManager {
             TeamManager.deleteTeam(connection, id);
             connection.commit();
         } catch (SQLException ex) {
-            logger.error("Can not delete User", ex);
+            logger.error("Can not delete Team", ex);
             try {
                 assert connection != null;
                 connection.rollback();
             } catch (SQLException e) {
                 logger.error("Can not roll back", e);
             }
-            throw new DBException("Can not delete User", ex);
+            throw new DBException("Can not delete Team", ex);
         } finally {
             close(connection);
         }

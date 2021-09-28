@@ -13,7 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+/**
+ * Servlet that implements functionality of adding team
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/add_team")
 public class AddTeamServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(AddTeamServlet.class);

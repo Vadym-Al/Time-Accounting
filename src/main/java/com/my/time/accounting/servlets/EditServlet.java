@@ -12,7 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Time;
-
+/**
+ * Servlet that implements functionality of adding activity
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/edit")
 public class EditServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(EditServlet.class);

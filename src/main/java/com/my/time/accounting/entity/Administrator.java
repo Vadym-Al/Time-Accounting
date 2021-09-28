@@ -3,6 +3,12 @@ package com.my.time.accounting.entity;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * Class that enterprise database table in entity
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class Administrator {
     private long adminId;
     private String name;
@@ -13,6 +19,16 @@ public class Administrator {
     private String phoneNumber;
     private Timestamp createTime;
 
+    /**
+     * Method fo creation administrator
+     * @param name - admin name
+     * @param lastName - admin last name
+     * @param password - account password
+     * @param email - admin email
+     * @param company - admin company
+     * @param phoneNumber - admin phone number
+     * @return created administrator
+     */
     public static Administrator createAdministrator(String name, String lastName, String password, String email, String company, String phoneNumber){
         Administrator administrator = new Administrator();
         administrator.setName(name);

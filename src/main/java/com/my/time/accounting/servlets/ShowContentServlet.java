@@ -16,7 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * Servlet that implements functionality of showing information
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/show_context")
 public class ShowContentServlet extends HttpServlet {
     private static final String CUSTOMERS = "customers";

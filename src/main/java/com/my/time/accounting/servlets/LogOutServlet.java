@@ -10,7 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+/**
+ * Servlet that implements functionality of log out
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/logout")
 public class LogOutServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(LogOutServlet.class);

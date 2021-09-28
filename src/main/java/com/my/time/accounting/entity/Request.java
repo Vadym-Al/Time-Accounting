@@ -2,6 +2,12 @@ package com.my.time.accounting.entity;
 
 import java.util.Objects;
 
+/**
+ * Class that enterprise database table in entity
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class Request {
     private long requestId;
     private String activityName;
@@ -10,7 +16,15 @@ public class Request {
     private long administratorId;
     private long userId;
 
-    public static Request createRequest(String about, long activityId, long administratorId, long userId){
+    /**
+     * Method of creation request
+     * @param about - about request
+     * @param activityId - type of activity
+     * @param administratorId - administrator id
+     * @param userId - user id
+     * @return request from user to admin
+     */
+    public static Request createRequest(String about, long activityId, long administratorId, long userId) {
         Request request = new Request();
         request.setAbout(about);
         request.setActivityId(activityId);

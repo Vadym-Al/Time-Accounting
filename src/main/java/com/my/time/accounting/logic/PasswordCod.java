@@ -6,12 +6,27 @@ import org.apache.log4j.Logger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Class that hash passwords of database entities
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class PasswordCod {
     private static final Logger logger = LogManager.getLogger(PasswordCod.class);
     private static final String ENCODING = "MD5";
 
+    /**
+     * private constructor
+     * @see PasswordCod#PasswordCod()
+     */
     private PasswordCod(){}
 
+    /**
+     * Method that code the password use MD5
+     * @param password - input password
+     * @return code
+     */
     public static String encode(String password){
         MessageDigest digest;
         try {

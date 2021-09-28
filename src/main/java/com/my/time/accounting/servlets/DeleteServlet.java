@@ -11,7 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * Servlet that implements functionality of deleting database data
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(DeleteServlet.class);

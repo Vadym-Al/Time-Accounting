@@ -5,6 +5,12 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * Class that enterprise database table in entity
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class Task {
     private long taskId;
     private String name;
@@ -15,6 +21,15 @@ public class Task {
     private long activityType;
     private long administratorId;
 
+    /**
+     * Method of creation task
+     * @param name - task name
+     * @param deadline - task deadline
+     * @param about - about task
+     * @param activityType - activity id
+     * @param administratorId - administrator id
+     * @return created task
+     */
     public static Task createTask(String name, Date deadline, String about, long activityType, long administratorId){
         Task task = new Task();
         task.setName(name);

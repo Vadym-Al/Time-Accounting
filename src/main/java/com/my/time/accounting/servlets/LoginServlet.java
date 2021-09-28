@@ -16,7 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+/**
+ * Servlet that implements functionality of log in
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private static final String LOGIN_PAGE = "/login.jsp";

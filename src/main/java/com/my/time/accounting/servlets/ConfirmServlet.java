@@ -15,7 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
-
+/**
+ * Servlet that implements functionality of confirming users request
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/confirm")
 public class ConfirmServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(ConfirmServlet.class);
@@ -37,6 +42,7 @@ public class ConfirmServlet extends HttpServlet {
             }
         }
         try {
+            assert request != null;
             Task task = Task.createTask(dbManager.searchActivityById(request.getActivityId()).getName(),
                     Date.valueOf(req.getParameter("deadline")),
                     dbManager.searchUserByEmail((String) session.getAttribute("email")).getName(),

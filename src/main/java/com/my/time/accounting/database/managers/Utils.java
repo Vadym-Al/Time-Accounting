@@ -9,11 +9,25 @@ import java.sql.SQLException;
 
 import static com.my.time.accounting.database.SQLConstance.*;
 
+/**
+ * Class that contains instructions of processing all database entities
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class Utils {
     private static final Logger logger = LogManager.getLogger(Utils.class);
 
+    /**
+     * private constructor
+     * @see Utils#Utils()
+     */
     private Utils(){}
 
+    /**
+     * Method that realise auto close method
+     * @param autoCloseable - java.lang interface
+     */
     public static void close(AutoCloseable autoCloseable) {
         if (autoCloseable != null) {
             try {
@@ -29,6 +43,12 @@ public class Utils {
         return param.replace("!", "!!").replace("%", "!%").replace("_", "!_").replace("[", "![");
     }
 
+    /**
+     * Instruction of mapping administrator
+     * @param rs - resultSet
+     * @return administrator
+     * @throws SQLException- possible exception
+     */
     public static Administrator mapAdministrator(ResultSet rs) throws SQLException {
         Administrator administrator = new Administrator();
         administrator.setAdminId(rs.getLong(ADMINISTRATOR_ID));
@@ -42,6 +62,12 @@ public class Utils {
         return administrator;
     }
 
+    /**
+     * Instruction of mapping activity
+     * @param rs - resultSet
+     * @return activity
+     * @throws SQLException- possible exception
+     */
     public static Activity mapActivity(ResultSet rs) throws SQLException {
         Activity activity = new Activity();
         activity.setActivityId(rs.getLong(ACTIVITY_ID));
@@ -51,6 +77,12 @@ public class Utils {
         return activity;
     }
 
+    /**
+     * Instruction of mapping request
+     * @param rs - resultSet
+     * @return request
+     * @throws SQLException- possible exception
+     */
     public static Request mapRequest(ResultSet rs) throws SQLException {
         Request request = new Request();
         request.setRequestId(rs.getLong("request_id"));
@@ -61,6 +93,12 @@ public class Utils {
         return request;
     }
 
+    /**
+     * Instruction of mapping task
+     * @param rs - resultSet
+     * @return task
+     * @throws SQLException- possible exception
+     */
     public static Task mapTask(ResultSet rs) throws SQLException {
         Task task = new Task();
         task.setTaskId(rs.getLong("task_id"));
@@ -74,6 +112,12 @@ public class Utils {
         return task;
     }
 
+    /**
+     * Instruction of mapping team
+     * @param rs - resultSet
+     * @return team
+     * @throws SQLException- possible exception
+     */
     public static Team mapTeam(ResultSet rs) throws SQLException {
         Team team = new Team();
         team.setTeamId(rs.getLong(TEAM_ID));
@@ -84,6 +128,12 @@ public class Utils {
         return team;
     }
 
+    /**
+     * Instruction of mapping user
+     * @param rs - resultSet
+     * @return user
+     * @throws SQLException- possible exception
+     */
     public static User mapUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setUserId(rs.getLong("user_id"));

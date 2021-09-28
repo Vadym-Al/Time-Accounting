@@ -14,10 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
+/**
+ * Servlet that implements functionality of sorting information
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/sort")
 public class SortServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(SortServlet.class);
@@ -35,6 +39,7 @@ public class SortServlet extends HttpServlet {
         }
         if (req.getParameter("submit").equals("Filter")){
             List<Task> temp = new ArrayList<>();
+            assert list != null;
             for (Task task: list){
                 if (task.getName().equals(req.getParameter("filter_param"))){
                     temp.add(task);
@@ -45,15 +50,15 @@ public class SortServlet extends HttpServlet {
             switch (req.getParameter("sort_param")) {
                 case "Name":
                     assert list != null;
-                    Collections.sort(list, Comparator.comparing(Task::getName));
+                    list.sort(Comparator.comparing(Task::getName));
                     break;
                 case "Activity type":
                     assert list != null;
-                    Collections.sort(list, Comparator.comparing(Task::getActivityType));
+                    list.sort(Comparator.comparing(Task::getActivityType));
                     break;
                 case "By user":
                     assert list != null;
-                    Collections.sort(list, Comparator.comparing(Task::getDeadline));
+                    list.sort(Comparator.comparing(Task::getDeadline));
                     break;
             }
         }

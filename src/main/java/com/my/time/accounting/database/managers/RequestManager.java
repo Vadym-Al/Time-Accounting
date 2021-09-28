@@ -11,9 +11,25 @@ import java.util.List;
 import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
+/**
+ * Class that contains instructions of processing information about requests in data base
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class RequestManager {
+    /**
+     * private constructor
+     * @see RequestManager#RequestManager()
+     */
     private RequestManager(){}
 
+    /**
+     * Instruction of inserting request to database
+     * @param connection - connection with database
+     * @param request - data base entity
+     * @throws SQLException - possible exception
+     */
     public static void insertRequest(Connection connection, Request request) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -39,6 +55,13 @@ public class RequestManager {
         }
     }
 
+    /**
+     * Instruction of getting all requests from database
+     * @param connection - connection with database
+     * @param user - person that take data
+     * @return list of requests for user
+     * @throws SQLException - possible exception
+     */
     public static List<Request> getAllRequestsForUser(Connection connection, User user) throws SQLException {
         List<Request> requests = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -59,6 +82,13 @@ public class RequestManager {
         return requests;
     }
 
+    /**
+     * Instruction of getting all requests from database
+     * @param connection - connection with database
+     * @param administrator - person that take data
+     * @return list of requests for administrator
+     * @throws SQLException - possible exception
+     */
     public static List<Request> getAllRequestsForAdmin(Connection connection, Administrator administrator) throws SQLException {
         List<Request> requests = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -79,6 +109,13 @@ public class RequestManager {
         return requests;
     }
 
+    /**
+     * Instruction of searching request by his id
+     * @param connection - connection with database
+     * @param id - activity id
+     * @return request from database
+     * @throws SQLException - possible exception
+     */
     public static Request searchRequestById(Connection connection, long id) throws SQLException {
         Request request = new Request();
         PreparedStatement pstmt = null;
@@ -99,6 +136,12 @@ public class RequestManager {
         return request;
     }
 
+    /**
+     * Instruction of deleting request from database
+     * @param connection - connection with database
+     * @param id - request id
+     * @throws SQLException - possible exception
+     */
     public static void deleteRequest(Connection connection, long id) throws SQLException {
         PreparedStatement pstmt = null;
         try {
@@ -110,6 +153,12 @@ public class RequestManager {
         }
     }
 
+    /**
+     * Instruction of deleting request from database for user
+     * @param connection - connection with database
+     * @param id - request id
+     * @throws SQLException - possible exception
+     */
     public static void deleteRequestFoUser(Connection connection, long id) throws SQLException{
         PreparedStatement pstmt = null;
         try {

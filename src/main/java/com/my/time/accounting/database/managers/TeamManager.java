@@ -11,9 +11,25 @@ import java.util.List;
 import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
+/**
+ * Class that contains instructions of processing information about activities in data base
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class TeamManager {
+    /**
+     * private constructor
+     * @see TeamManager#TeamManager()
+     */
     private TeamManager() {}
 
+    /**
+     * Instruction of inserting team to database
+     * @param connection - connection with database
+     * @param team - data base entity
+     * @throws SQLException - possible exception
+     */
     public static void insertTeam(Connection connection, Team team) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -39,6 +55,13 @@ public class TeamManager {
         }
     }
 
+    /**
+     * Instruction of getting all teams from database for user
+     * @param connection - connection with database
+     * @param user - person that take data
+     * @return list of teams for user
+     * @throws SQLException
+     */
     public static List<Team> getAllTeamsForUser(Connection connection, User user) throws SQLException {
         List<Team> teams = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -59,6 +82,13 @@ public class TeamManager {
         return teams;
     }
 
+    /**
+     * Instruction of getting all teams from database for administrator
+     * @param connection - connection with database
+     * @param administrator - person that take data
+     * @return list of teams for administrator
+     * @throws SQLException
+     */
     public static List<Team> getAllTeamsForAdmin(Connection connection, Administrator administrator) throws SQLException {
         List<Team> teams = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -80,6 +110,13 @@ public class TeamManager {
         return teams;
     }
 
+    /**
+     * Instruction of searching team by his iname
+     * @param connection - connection with database
+     * @param name - team id
+     * @return team from database
+     * @throws SQLException - possible exception
+     */
     public static Team searchTeamByName(Connection connection, String name) throws SQLException {
         Team team = new Team();
         PreparedStatement pstmt = null;
@@ -101,6 +138,12 @@ public class TeamManager {
         return team;
     }
 
+    /**
+     * Instruction of deleting team from database
+     * @param connection - connection with database
+     * @param id - team id
+     * @throws SQLException - possible exception
+     */
     public static void deleteTeam(Connection connection, long id) throws SQLException{
         PreparedStatement pstmt = null;
         try {

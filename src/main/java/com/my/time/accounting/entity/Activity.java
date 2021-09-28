@@ -2,12 +2,25 @@ package com.my.time.accounting.entity;
 
 import java.util.Objects;
 
+/**
+ * Class that enterprise database table in entity
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class Activity {
     private long activityId;
     private String name;
     private String about;
     private long administratorId;
 
+    /**
+     * Method of creation activity
+     * @param name - name of activity
+     * @param about - something about activity
+     * @param administratorId - admin id
+     * @return created activity
+     */
     public static Activity createActivity(String name, String about, long administratorId){
         Activity activity = new Activity();
         activity.setName(name);

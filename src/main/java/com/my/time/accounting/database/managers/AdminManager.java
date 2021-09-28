@@ -10,9 +10,25 @@ import java.util.List;
 import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
+/**
+ * Class that contains instructions of processing information about administrators in data base
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class AdminManager {
+    /**
+     * private constructor
+     * @see AdminManager#AdminManager()
+     */
     private AdminManager() {}
 
+    /**
+     * Instruction of inserting administrator to database
+     * @param connection - connection with database
+     * @param administrator - data base entity
+     * @throws SQLException - possible exception
+     */
     public static void insertAdministrator(Connection connection, Administrator administrator) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -39,6 +55,13 @@ public class AdminManager {
         }
     }
 
+    /**
+     * Instruction of getting all tasks from database
+     * @param connection - connection with database
+     * @param administrator - person that take data
+     * @return list of tasks for administrator
+     * @throws SQLException - possible exception
+     */
     public static List<Task> getAllTasksForAdmin(Connection connection, Administrator administrator) throws SQLException {
         List<Task> tasks = new ArrayList<>();
         PreparedStatement pstmt = null;
@@ -59,6 +82,13 @@ public class AdminManager {
         return tasks;
     }
 
+    /**
+     * Instruction of searching administrator by his email
+     * @param connection - connection with database
+     * @param email - administrator email
+     * @return administrator from database
+     * @throws SQLException - possible exception
+     */
     public static Administrator searchAdminByEmail(Connection connection, String email) throws SQLException {
         Administrator administrator = new Administrator();
         PreparedStatement pstmt = null;
@@ -80,6 +110,13 @@ public class AdminManager {
         return administrator;
     }
 
+    /**
+     * Instruction of searching administrator by his id
+     * @param connection - connection with database
+     * @param id - administrator id
+     * @return administrator from database
+     * @throws SQLException - possible exception
+     */
     public static Administrator searchAdminById(Connection connection, long id) throws SQLException {
         Administrator administrator = new Administrator();
         PreparedStatement pstmt = null;

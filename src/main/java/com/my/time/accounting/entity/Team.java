@@ -2,6 +2,12 @@ package com.my.time.accounting.entity;
 
 import java.util.Objects;
 
+/**
+ * Class that enterprise database table in entity
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class Team {
     private long teamId;
     private String name;
@@ -9,6 +15,14 @@ public class Team {
     private String description;
     private long administratorId;
 
+    /**
+     * method of creation team
+     * @param name - team name
+     * @param company - team company
+     * @param description - team description
+     * @param administratorId - administrator id
+     * @return created team
+     */
     public static Team createTeam(String name, String company, String description, long administratorId){
         Team team = new Team();
         team.setName(name);

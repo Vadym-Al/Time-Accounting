@@ -1,5 +1,11 @@
 package com.my.time.accounting.database;
 
+/**
+ * Class constants for SQL database
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 public class SQLConstance {
     private SQLConstance(){}
 

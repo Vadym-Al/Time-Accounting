@@ -15,8 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
-
+/**
+ * Servlet that implements functionality of adding task
+ *
+ * @author Vadym Aldyk
+ * @version 1.0
+ */
 @WebServlet("/add_task")
 public class AddTaskServlet extends HttpServlet {
     private final Logger logger = LogManager.getLogger(AddTaskServlet.class);
@@ -39,6 +43,7 @@ public class AddTaskServlet extends HttpServlet {
                 logger.error("Can not found error.jsp", servletException);
             }
         }
+        assert activity != null;
         Task task = Task.createTask(activity.getName(),
                 Date.valueOf(req.getParameter("dead_line")),
                 "",
