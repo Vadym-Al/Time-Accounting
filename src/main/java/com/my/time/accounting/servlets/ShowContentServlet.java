@@ -53,7 +53,7 @@ public class ShowContentServlet extends HttpServlet {
                         break;
                     case "Requests":
                         List<Request> list = dbManager.getAllRequestsForAdmin((String) session.getAttribute("email"));
-                        for (Request request: list){
+                        for (Request request : list) {
                             request.setActivityName(dbManager.searchActivityById(request.getActivityId()).getName());
                         }
                         req.setAttribute(CUSTOMERS, list);
@@ -61,10 +61,15 @@ public class ShowContentServlet extends HttpServlet {
                         req.setAttribute("isRequest", true);
                         break;
                     default:
-                        getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+                        getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
                 }
             } catch (ServletException | IOException | DBException e) {
                 logger.error("Error in show admin info", e);
+                try {
+                    getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+                } catch (ServletException | IOException servletException) {
+                    logger.error("Can not found error.jsp", servletException);
+                }
             }
         } else {
             try {
@@ -88,7 +93,7 @@ public class ShowContentServlet extends HttpServlet {
                         break;
                     case "Requests":
                         List<Request> list = dbManager.getAllRequestsForUser((String) session.getAttribute("email"));
-                        for (Request request: list){
+                        for (Request request : list) {
                             request.setActivityName(dbManager.searchActivityById(request.getActivityId()).getName());
                         }
                         req.setAttribute(CUSTOMERS, list);
@@ -96,23 +101,33 @@ public class ShowContentServlet extends HttpServlet {
                         req.setAttribute("isRequest", true);
                         break;
                     default:
-                        getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+                        getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
                 }
             } catch (ServletException | IOException | DBException e) {
                 logger.error("Error in show user info", e);
+                try {
+                    getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+                } catch (ServletException | IOException servletException) {
+                    logger.error("Can not found error.jsp", servletException);
+                }
             }
         }
         req.setAttribute("user", session.getAttribute("user"));
         req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
 
         try {
-            if((boolean) session.getAttribute("isAdmin")){
+            if ((boolean) session.getAttribute("isAdmin")) {
                 getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
-            }else {
+            } else {
                 getServletContext().getRequestDispatcher("/mainUser.jsp").forward(req, resp);
             }
         } catch (ServletException | IOException e) {
             logger.error("Error in show", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

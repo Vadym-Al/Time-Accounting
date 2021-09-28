@@ -31,6 +31,11 @@ public class AddRequestServlet extends HttpServlet {
             activityType = dbManager.searchActivityByName(req.getParameter("activity_type")).getActivityId();
         } catch (DBException e) {
             logger.error("Can not find id", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
         Request request = Request.createRequest(req.getParameter("about"),
                 activityType,
@@ -42,6 +47,11 @@ public class AddRequestServlet extends HttpServlet {
             resp.sendRedirect("show_context?page=Requests");
         } catch (IOException | DBException e) {
             logger.error("Error in addRequest", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

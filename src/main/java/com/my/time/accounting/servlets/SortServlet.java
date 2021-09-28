@@ -2,7 +2,6 @@ package com.my.time.accounting.servlets;
 
 import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
-import com.my.time.accounting.entity.Activity;
 import com.my.time.accounting.entity.Task;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -68,6 +67,11 @@ public class SortServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
         } catch (IOException | ServletException e) {
             logger.error("Error in sort", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
 
     }

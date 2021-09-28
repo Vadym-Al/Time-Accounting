@@ -31,6 +31,11 @@ public class AddUserServlet extends HttpServlet {
             teamId =  dbManager.searchTeamByName(req.getParameter("team_name")).getTeamId();
         } catch (DBException e) {
             logger.error("Can not find id", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
 
         User user = User.createUser(req.getParameter("name"),
@@ -51,11 +56,15 @@ public class AddUserServlet extends HttpServlet {
                 }
             }else{
                 dbManager.insertUser(user);
-
                 resp.sendRedirect("show_context?page=Users");
             }
         } catch (DBException | IOException e) {
             logger.error("Error in adding user", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

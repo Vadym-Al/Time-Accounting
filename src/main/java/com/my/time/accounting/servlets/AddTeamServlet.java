@@ -27,6 +27,11 @@ public class AddTeamServlet extends HttpServlet {
             id = dbManager.searchAdminByEmail((String) session.getAttribute("email")).getAdminId();
         } catch (DBException e) {
             logger.error("Can not find id", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
         Team team = Team.createTeam(req.getParameter("name"),
                 req.getParameter("company"),
@@ -46,6 +51,11 @@ public class AddTeamServlet extends HttpServlet {
             }
         } catch (IOException | DBException e) {
             logger.error("Error when add team", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

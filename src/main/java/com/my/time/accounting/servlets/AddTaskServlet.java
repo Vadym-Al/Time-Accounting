@@ -33,6 +33,11 @@ public class AddTaskServlet extends HttpServlet {
             activity = dbManager.searchActivityByName(req.getParameter("activity_type"));
         } catch (DBException e) {
             logger.error("Can not find id", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
         Task task = Task.createTask(activity.getName(),
                 Date.valueOf(req.getParameter("dead_line")),
@@ -48,6 +53,11 @@ public class AddTaskServlet extends HttpServlet {
             resp.sendRedirect("show_context?page=Tasks");
         } catch (DBException | IOException e) {
             logger.error("Error in adding user", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

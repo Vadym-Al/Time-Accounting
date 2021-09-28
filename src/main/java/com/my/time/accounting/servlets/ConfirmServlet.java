@@ -30,6 +30,11 @@ public class ConfirmServlet extends HttpServlet {
             request = dbManager.searchRequestById(Integer.parseInt(req.getParameter("id")));
         } catch (DBException e) {
             logger.error("Can not find request", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
         try {
             Task task = Task.createTask(dbManager.searchActivityById(request.getActivityId()).getName(),
@@ -42,6 +47,11 @@ public class ConfirmServlet extends HttpServlet {
             dbManager.deleteRequest(request.getRequestId());
         } catch (DBException e) {
             logger.error("Can not create new task", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
 
         req.setAttribute("user", session.getAttribute("user"));
@@ -54,7 +64,11 @@ public class ConfirmServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
         } catch (ServletException | IOException | DBException e) {
             logger.error("Error in confirm", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
-
     }
 }

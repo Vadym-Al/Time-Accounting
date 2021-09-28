@@ -10,12 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
-    private static final String CUSTOMERS = "customers";
     private final Logger logger = LogManager.getLogger(DeleteServlet.class);
     private final DBManager dbManager = DBManager.getInstance();
 
@@ -39,15 +37,25 @@ public class DeleteServlet extends HttpServlet {
                     dbManager.deleteRequest(Integer.parseInt(req.getParameter("id")));
                     break;
                 default:
-                    getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+                    getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
             }
         }catch (DBException | ServletException | IOException e) {
             logger.error("Error in delete Servlet", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
         try {
             resp.sendRedirect("show_context?page="+req.getParameter("type"));
         } catch (IOException e) {
             logger.error("Error when add activity", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

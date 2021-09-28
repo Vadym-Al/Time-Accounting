@@ -43,6 +43,11 @@ public class ProfileServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/profile.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             logger.error("Error in profile", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

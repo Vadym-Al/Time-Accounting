@@ -47,10 +47,15 @@ public class RedirectServlet extends HttpServlet {
                     getServletContext().getRequestDispatcher("/addRequests.jsp").forward(req, resp);
                     break;
                 default:
-                    getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+                    getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
             }
         } catch (ServletException | IOException | DBException e) {
             logger.error("Error in redirect", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }

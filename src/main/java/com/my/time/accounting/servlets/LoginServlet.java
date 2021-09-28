@@ -5,7 +5,6 @@ import com.my.time.accounting.database.DBException;
 import com.my.time.accounting.database.DBManager;
 import com.my.time.accounting.entity.Administrator;
 import com.my.time.accounting.entity.User;
-import com.my.time.accounting.logic.AsList;
 import com.my.time.accounting.logic.PasswordCod;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,7 +20,6 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private static final String LOGIN_PAGE = "/login.jsp";
-    private static final String PROFILE_PAGE = "/profile.jsp";
     private final Logger logger = LogManager.getLogger(LoginServlet.class);
     private final DBManager dbManager = DBManager.getInstance();
 
@@ -63,6 +61,11 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (DBException | ServletException | IOException e) {
             logger.error("Error in login servlet", e);
+            try {
+                getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
+            } catch (ServletException | IOException servletException) {
+                logger.error("Can not found error.jsp", servletException);
+            }
         }
     }
 }
