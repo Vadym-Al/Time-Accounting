@@ -47,17 +47,14 @@ public class RegisterServlet extends HttpServlet {
                 dbManager.insertTeam(team);
                 String user = administrator.getName() + " " + administrator.getLastName();
 
-                req.setAttribute("user", user);
-                req.setAttribute("isAdmin", true);
-                req.setAttribute("customers", AsList.adminAsList(administrator));
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
                 session.setAttribute("isAdmin", true);
                 session.setAttribute("email", administrator.getEmail());
 
-                getServletContext().getRequestDispatcher("/profile.jsp").forward(req, resp);
+                resp.sendRedirect("profile");
             }
-        } catch (DBException | IOException | ServletException e) {
+        } catch (DBException | IOException e) {
             logger.error("Error in register", e);
         }
     }

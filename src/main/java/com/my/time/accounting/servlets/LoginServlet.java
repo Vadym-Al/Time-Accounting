@@ -35,14 +35,11 @@ public class LoginServlet extends HttpServlet {
                 User user = dbManager.searchUserByEmail(req.getParameter(EMAIL));
                 if (user.getPassword().equals(password)) {
                     String customer = user.getName() + " " + user.getLastName();
-                    req.setAttribute("user", customer);
-                    req.setAttribute("isAdmin", false);
-                    req.setAttribute("customers", AsList.userAsList(user));
                     session.setAttribute("user", customer);
                     session.setAttribute("isAdmin", false);
                     session.setAttribute("email", user.getEmail());
 
-                    getServletContext().getRequestDispatcher(PROFILE_PAGE).forward(req, resp);
+                    resp.sendRedirect("profile");
                 } else {
                     req.setAttribute(ERROR, true);
                     getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(req, resp);
@@ -51,14 +48,11 @@ public class LoginServlet extends HttpServlet {
                 Administrator administrator = dbManager.searchAdminByEmail(req.getParameter(EMAIL));
                 if (administrator.getPassword().equals(password)) {
                     String user = administrator.getName() + " " + administrator.getLastName();
-                    req.setAttribute("user", user);
-                    req.setAttribute("isAdmin", true);
-                    req.setAttribute("customers", AsList.adminAsList(administrator));
                     session.setAttribute("user", user);
                     session.setAttribute("isAdmin", true);
                     session.setAttribute("email", administrator.getEmail());
 
-                    getServletContext().getRequestDispatcher(PROFILE_PAGE).forward(req, resp);
+                    resp.sendRedirect("profile");
                 } else {
                     req.setAttribute(ERROR, true);
                     getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(req, resp);

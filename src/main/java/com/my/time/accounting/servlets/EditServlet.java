@@ -5,7 +5,6 @@ import com.my.time.accounting.database.DBManager;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +25,9 @@ public class EditServlet extends HttpServlet {
         try {
             dbManager.updateTask(Integer.parseInt(req.getParameter("id")), Time.valueOf(req.getParameter("wastedTime")+":00"));
             req.setAttribute("customers", dbManager.getAllTasksForUser((String) session.getAttribute("email")));
-            req.setAttribute("user", session.getAttribute("user"));
-            req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
-            req.setAttribute("head", "Tasks");
-            req.setAttribute("isTask", true);
 
-            getServletContext().getRequestDispatcher("/mainUser.jsp").forward(req, resp);
-        } catch (DBException | ServletException | IOException e) {
+            resp.sendRedirect("show_context?page=Tasks");
+        } catch (DBException | IOException e) {
             logger.error("Error in edit", e);
         }
     }

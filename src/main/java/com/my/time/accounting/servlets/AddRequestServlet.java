@@ -39,14 +39,8 @@ public class AddRequestServlet extends HttpServlet {
         try {
             dbManager.insertRequest(request);
 
-            req.setAttribute("user", session.getAttribute("user"));
-            req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
-            req.setAttribute("head", "Requests");
-            req.setAttribute("customers", dbManager.getAllRequestsForUser((String) session.getAttribute("email")));
-            req.setAttribute("isActivity", "True");
-
-            getServletContext().getRequestDispatcher("/mainUser.jsp").forward(req, resp);
-        } catch (ServletException | IOException | DBException e) {
+            resp.sendRedirect("show_context?page=Requests");
+        } catch (IOException | DBException e) {
             logger.error("Error in addRequest", e);
         }
     }

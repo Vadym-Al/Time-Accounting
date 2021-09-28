@@ -21,34 +21,22 @@ public class DeleteServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        HttpSession session = req.getSession();
         try {
             switch (req.getParameter("type")){
                 case "Team":
                     dbManager.deleteTeam(Integer.parseInt(req.getParameter("id")));
-                    req.setAttribute("isTeam", true);
-                    req.setAttribute(CUSTOMERS, dbManager.getAllTeamsForAdmin((String) session.getAttribute("email")));
                     break;
                 case "Activity":
                     dbManager.deleteActivity(Integer.parseInt(req.getParameter("id")));
-                    req.setAttribute("isActivity", true);
-                    req.setAttribute(CUSTOMERS, dbManager.getAllActivitiesForAdmin((String) session.getAttribute("email")));
                     break;
                 case "Task":
                     dbManager.deleteTask(Integer.parseInt(req.getParameter("id")));
-                    req.setAttribute("isTask", true);
-                    req.setAttribute(CUSTOMERS, dbManager.getAllTasksForAdmin((String) session.getAttribute("email")));
                     break;
                 case "User":
                     dbManager.deleteUser(Integer.parseInt(req.getParameter("id")));
-                    req.setAttribute("isUser", true);
-                    req.setAttribute(CUSTOMERS, dbManager.getAllUsersForAdmin((String) session.getAttribute("email")));
                     break;
                 case "Request":
                     dbManager.deleteRequest(Integer.parseInt(req.getParameter("id")));
-                    req.setAttribute("isRequest", true);
-                    req.setAttribute(CUSTOMERS, dbManager.getAllRequestsForUser((String) session.getAttribute("email")));
-                    getServletContext().getRequestDispatcher("/mainUser.jsp").forward(req, resp);
                     break;
                 default:
                     getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
@@ -57,11 +45,8 @@ public class DeleteServlet extends HttpServlet {
             logger.error("Error in delete Servlet", e);
         }
         try {
-            req.setAttribute("user", session.getAttribute("user"));
-            req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
-
-            getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
-        } catch (ServletException | IOException e) {
+            resp.sendRedirect("show_context?page="+req.getParameter("type"));
+        } catch (IOException e) {
             logger.error("Error when add activity", e);
         }
     }

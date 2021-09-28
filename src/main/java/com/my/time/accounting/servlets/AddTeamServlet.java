@@ -42,15 +42,9 @@ public class AddTeamServlet extends HttpServlet {
             } else {
                 dbManager.insertTeam(team);
 
-                req.setAttribute("user", session.getAttribute("user"));
-                req.setAttribute("isAdmin", session.getAttribute("isAdmin"));
-                req.setAttribute("customers", dbManager.getAllTeamsForAdmin((String) session.getAttribute("email")));
-                req.setAttribute("head", "Teams");
-                req.setAttribute("isTeam", "True");
-
-                getServletContext().getRequestDispatcher("/mainAdmin.jsp").forward(req, resp);
+                resp.sendRedirect("show_context?page=Teams");
             }
-        } catch (ServletException | IOException | DBException e) {
+        } catch (IOException | DBException e) {
             logger.error("Error when add team", e);
         }
     }
