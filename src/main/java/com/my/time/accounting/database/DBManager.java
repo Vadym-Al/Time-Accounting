@@ -581,4 +581,20 @@ public class DBManager {
             close(connection);
         }
     }
+
+    public List<Task> getAllTasksByAdminSorted(String email) throws DBException {
+        List<Task> tasks;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Administrator administrator = searchAdminByEmail(email);
+            tasks = AdminManager.getAllTasksForAdminSorted(connection, administrator);
+        } catch (SQLException ex) {
+            logger.error("Can not update Task", ex);
+            throw new DBException("Can not update Task", ex);
+        } finally {
+            close(connection);
+        }
+        return tasks;
+    }
 }

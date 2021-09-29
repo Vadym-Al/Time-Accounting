@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 /**
  * Servlet that implements functionality of deleting database data
@@ -24,6 +25,7 @@ public class DeleteServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession();
         try {
             switch (req.getParameter("type")){
                 case "Team":
@@ -53,7 +55,7 @@ public class DeleteServlet extends HttpServlet {
             }
         }
         try {
-            resp.sendRedirect("show_context?page="+req.getParameter("type"));
+            resp.sendRedirect("show_context?page="+req.getParameter("type")+"s");
         } catch (IOException e) {
             logger.error("Error when add activity", e);
             try {

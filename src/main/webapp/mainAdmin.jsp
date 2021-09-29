@@ -34,6 +34,7 @@
             <li><a class="link" href="show_context?page=Activities">Activities</a></li>
             <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
             <li><a class="link" href="show_context?page=Requests">Requests</a></li>
+            <li><a class="link" href="doTask">do Task</a></li>
             <li><a class="link" href="#"><select>
                 <option onclick="">English</option>
                 <option>Russian</option>

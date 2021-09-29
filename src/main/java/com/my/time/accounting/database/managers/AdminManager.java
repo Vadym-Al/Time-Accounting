@@ -82,6 +82,26 @@ public class AdminManager {
         return tasks;
     }
 
+    public static List<Task> getAllTasksForAdminSorted(Connection connection, Administrator administrator) throws SQLException {
+        List<Task> tasks = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        try {
+            pstmt = connection.prepareStatement(SQL_GET_ALL_TASKS_BY_ADMIN_SORT);
+
+            pstmt.setLong(1, administrator.getAdminId());
+            resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                tasks.add(mapTask(resultSet));
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return tasks;
+    }
+
     /**
      * Instruction of searching administrator by his email
      * @param connection - connection with database

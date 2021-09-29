@@ -73,4 +73,5 @@ public class SQLConstance {
     //--------------------------------------------------------
 
     public static final String SQL_UPDATE_TASK = "UPDATE task SET wasted_time=? WHERE task_id=?";
+    public static final String SQL_GET_ALL_TASKS_BY_ADMIN_SORT = "SELECT * FROM task WHERE administrator_id LIKE ? ORDER BY wasted_time DESC";
 }
