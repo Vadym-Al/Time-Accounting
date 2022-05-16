@@ -36,7 +36,7 @@
 
 ## Діаграма прецедентів
 
-<p align="center"><img src="https://github.com/Vadym-Al/Time-Accounting/blob/main/png/USE%20CASE.drawio%20(1).png" width="720px" height="520px"/><p/>
+<p align="center"><img src="https://github.com/Vadym-Al/Time-Accounting/blob/main/png/USE%20CASE.drawio%20(1).png" width="720px" height="820px"/><p/>
 
 ## Архітектура системи
 
@@ -52,5 +52,5 @@
 
 ## Переглянути сайт  
 
-### Посилання на реліз:
-### Посилання на сайт: 
+### Посилання на реліз: https://github.com/Vadym-Al/Time-Accounting/releases
+### Посилання на сайт: http://195.179.193.160:8080/TimeAccounting-original/
