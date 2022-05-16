@@ -33,46 +33,20 @@
 версії. Цей додаток був обраний, тому що він забезпечує гнучкий підхід
 до розробки майбутнього сайту а також формує зв’язок java-коду з
 візуальною частиною.
-## Модель проектування
 
-Текст.
+## Діаграма прецедентів
 
+<p align="center"><img src="YOURIMAGE" width="720px" height="520px"/><p/>
 
 ## Архітектура системи
 
-Текст , яку зображено на рисунку 1.1
+<p align="center"><img src="YOURIMAGE" width="720px" height="520px"/><p/>
+
+## Схема бази даних
 
 <p align="center"><img src="YOURIMAGE" width="720px" height="520px"/><p/>
-<p align="center">Рисунок 1.1. – Текст</p>
-
-
-## Результат
-
-Текст.
-
-## Вихідні коди
-
-```Java
-Текст
-
-Код
-    
-
-Текст
-
-Код
-
-
-Текст
-
-Код
-
-```
 
 ## Переглянути сайт  
 
-[<img src="https://github.com/KyshynetsVlad/Poltava/blob/main/Practic_Interface/download-1915749__480.png" width="64px" height="64px"/>](LINK)  
-<p align="center"><img src="QRCODE"/></p>
-
-
-
+### Посилання на реліз:
+### Посилання на сайт: 
