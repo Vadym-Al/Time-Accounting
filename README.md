@@ -40,7 +40,7 @@
 
 ## Архітектура системи
 
-<p align="center"><img src="YOURIMAGE" width="720px" height="520px"/><p/>
+<p align="center"><img src="https://github.com/Vadym-Al/Time-Accounting/blob/main/png/all.png" width="720px" height="520px"/><p/>
 
 ## Схема бази даних
 
