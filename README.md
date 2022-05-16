@@ -36,7 +36,7 @@
 
 ## Діаграма прецедентів
 
-<p align="center"><img src="YOURIMAGE" width="720px" height="520px"/><p/>
+<p align="center"><img src="https://github.com/Vadym-Al/Time-Accounting/blob/main/png/USE%20CASE.drawio%20(1).png" width="720px" height="520px"/><p/>
 
 ## Архітектура системи
 
@@ -44,7 +44,11 @@
 
 ## Схема бази даних
 
-<p align="center"><img src="YOURIMAGE" width="720px" height="520px"/><p/>
+<p align="center"><img src="https://github.com/Vadym-Al/Time-Accounting/blob/main/DB/Time%20Accounting%20photo.png" width="720px" height="520px"/><p/>
+
+## Діаграма розгортання
+
+<p align="center"><img src="https://github.com/Vadym-Al/Time-Accounting/blob/main/png/%D0%94%D1%96%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%B0%20%D1%80%D0%BE%D0%B7%D0%B3%D0%BE%D1%80%D1%82%D0%B0%D0%BD%D0%BD%D1%8F.png" width="720px" height="520px"/><p/>
 
 ## Переглянути сайт  
 
