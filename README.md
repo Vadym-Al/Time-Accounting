@@ -12,6 +12,8 @@
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
+Метою роботи є розробка багатокористувацької системи обліку робочого часу на підприємстві засобами розробки IntelliJ IDEA та відпрацювати навички розробки, планування, аналізу поставленого завдання, креативного мислення та створення алгоритмів. Також важливим є здобуття знань в сфері тестування та проектування свого майбутнього проекту.
+
 <br>![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Vadym-Al&theme=solarized_dark)
 
 ## Середовище розробки
