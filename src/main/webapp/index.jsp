@@ -1,3 +1,6 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -33,33 +36,21 @@
     </style>
 </head>
 <body>
+<jsp:include page="additional/kostil.jsp"/>
+
+<fmt:setLocale value = "${lang}"/>
+<fmt:setBundle basename="resources" var="langBundle"/>
+
 <header>
-    <div class="navigation">
-        <div class="logo">LOGO</div>
-        <div class="menu">
-            <ul class="nav">
-                <li><a class="link" href="index.jsp">Welcome</a></li>
-                <li><a class="link" href="#"><select>
-                    <option onclick="">English</option>
-                    <option>Russian</option>
-                    <option>French</option>
-                </select></a></li>
-            </ul>
-            <ul class="nav icon">
-                <li><a class="link" href="login.jsp"><i>Sign in</i></a></li>
-                <li><a class="link" href="#"><img class="user" src="css/img/user.png" alt="user"></a></li>
-            </ul>
-        </div>
-    </div>
+    <jsp:include page="additional/navigation.jsp">
+        <jsp:param name="isAdmin" value="${requestScope.isAdmin}"/>
+    </jsp:include>
 </header>
     <main>
         <div class="description">
-            <h1>Time tracking</h1>
-            <p>Time tracking software used by millions. <br>
-                My web-site is a time tracker and timesheet app <br>
-                that lets you track work hours across projects. <br>
-                Unlimited users, free forever.</p><br>
-            <a href="registration.jsp" class="submit">Get started</a>
+            <h1><fmt:message key="Time_tracking" bundle="${langBundle}"/></h1>
+            <p><fmt:message key="TEXT" bundle="${langBundle}"/></p><br>
+            <a href="registration.jsp" class="submit"><fmt:message key="Get_started" bundle="${langBundle}"/></a>
         </div>
     </main>
 </body>

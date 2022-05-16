@@ -23,48 +23,12 @@
     </style>
 </head>
 <body>
-<div class="navigation">
-    <div class="logo">LOGO</div>
-    <div class="menu">
-        <c:if test="${requestScope.isAdmin == true}">
-            <ul class="nav">
-                <li><a class="link" href="show_context?page=Teams">Teams</a></li>
-                <li><a class="link" href="show_context?page=Users">Users</a></li>
-                <li><a class="link" href="show_context?page=Activities">Activities</a></li>
-                <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
-                <li><a class="link" href="show_context?page=Requests">Requests</a></li>
-                <li><a class="link" href="#"><select>
-                    <option onclick="">English</option>
-                    <option>Russian</option>
-                    <option>French</option>
-                </select></a></li>
-            </ul>
-            <ul class="nav">
-                <li><a class="link" href="logout">Sign out</a></li>
-            </ul>
-        </c:if>
-        <c:if test="${requestScope.isAdmin == false}">
-            <ul class="nav">
-                <li><a class="link" href="show_context?page=Teams">Teams</a></li>
-                <li><a class="link" href="show_context?page=Tasks">Tasks</a></li>
-                <li><a class="link" href="show_context?page=Activities">Activities</a></li>
-                <li><a class="link" href="show_context?page=Requests">Requests</a></li>
-                <li><a class="link" href="#"><select>
-                    <option onclick="">English</option>
-                    <option>Russian</option>
-                    <option>French</option>
-                </select></a></li>
-            </ul>
-            <ul class="nav">
-                <li><a class="link" href="logout">Sign out</a></li>
-            </ul>
-        </c:if>
-        <ul class="nav icon">
-            <li><a class="link" href="profile"><i>${user}</i></a></li>
-            <li><a class="link" href="profile"><img class="user" src="css/img/user.png" alt="user"></a></li>
-        </ul>
-    </div>
-</div>
+<jsp:include page="additional/kostil.jsp"/>
+
+    <jsp:include page="additional/navigation.jsp">
+        <jsp:param name="isAdmin" value="${requestScope.isAdmin}"/>
+    </jsp:include>
+
 <main>
     <c:forEach var="customer" items="${customers}">
     <form method="post" action="#">
