@@ -2,7 +2,7 @@
 
 <img align="left" width="0" height="192px" hspace="10"/>
 
-> ![Typing SVG](https://readme-typing-svg.herokuapp.com?size=30&color=F7F7F7&lines=Time+Accounting)
+> ![Typing SVG](https://readme-typing-svg.herokuapp.com?size=30&color=48B9F7&lines=Time+Accounting)
 > 
 > «Переддипломна практика» 
 > 
