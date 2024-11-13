@@ -10,101 +10,7 @@ import java.util.List;
 import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
-/**
- * Class that contains instructions of processing information about tasks in data base
- *
- * @author Vadym Aldyk
- * @version 1.0
- */
-public class TaskManager {
-    private TaskManager() {
-    }
-
-    /**
-     * Instruction of inserting task to database
-     * @param connection - connection with database
-     * @param task - data base entity
-     * @throws SQLException - possible exception
-     */
-    public static void insertTask(Connection connection, Task task) throws SQLException {
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-
-        try {
-            pstmt = connection.prepareStatement(SQL_ADD_NEW_TASK, Statement.RETURN_GENERATED_KEYS);
-
-            int k = 1;
-            pstmt.setString(k++, task.getName());
-            pstmt.setDate(k++, task.getDeadline());
-            pstmt.setString(k++, task.getAbout());
-            pstmt.setLong(k++, task.getActivityType());
-            pstmt.setLong(k++, task.getAdministratorId());
-
-            if (pstmt.executeUpdate() > 0) {
-                resultSet = pstmt.getGeneratedKeys();
-                if (resultSet.next()) {
-                    task.setTaskId(resultSet.getLong(1));
-                }
-            }
-        } finally {
-            close(resultSet);
-            close(pstmt);
-        }
-    }
-
-    /**
-     * Instruction of getting tasks from database
-     * @param connection - connection with database
-     * @param id - task id
-     * @return task from database
-     * @throws SQLException - possible exception
-     */
-    public static Task getTasksForUserById(Connection connection, long id) throws SQLException {
-        Task task = new Task();
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-        try {
-            pstmt = connection.prepareStatement(SQL_GET_TASKS_BY_ID);
-
-            pstmt.setLong(1, id);
-            resultSet = pstmt.executeQuery();
-            while (resultSet.next()) {
-                task = mapTask(resultSet);
-            }
-        } finally {
-            close(resultSet);
-            close(pstmt);
-        }
-        return task;
-    }
-
-    /**
-     * Instruction of searching task by name
-     * @param connection - connection with database
-     * @param name - task name
-     * @return task from database
-     * @throws SQLException - possible exception
-     */
-    public static Task searchTaskByName(Connection connection, String name) throws SQLException {
-        Task task = new Task();
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-
-        try {
-            pstmt = connection.prepareStatement(SQL_FIND_TASK_BY_NAME);
-
-            pstmt.setString(1, "%" + escapeForLike(name) + "%");
-            resultSet = pstmt.executeQuery();
-
-            while (resultSet.next()) {
-                task = mapTask(resultSet);
-            }
-        } finally {
-            close(resultSet);
-            close(pstmt);
-        }
-        return task;
-    }
+public class TaskManager implements Manager<Task, User>{
 
     /**
      * Instruction of getting all task for user
@@ -174,23 +80,6 @@ public class TaskManager {
     }
 
     /**
-     * Instruction of deleting task from database
-     * @param connection - connection with database
-     * @param id task id
-     * @throws SQLException - possible exception
-     */
-    public static void deleteTask(Connection connection, long id) throws SQLException{
-        PreparedStatement pstmt = null;
-        try {
-            pstmt = connection.prepareStatement(SQL_DELETE_TASK);
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
-        } finally {
-            close(pstmt);
-        }
-    }
-
-    /**
      * Instruction of deleting task from user
      * @param connection - connection with database
      * @param id - user id
@@ -205,5 +94,79 @@ public class TaskManager {
         } finally {
             close(pstmt);
         }
+    }
+
+    @Override
+    public void insertRaw(Connection connection, Task entity) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+
+        try {
+            pstmt = connection.prepareStatement(SQL_ADD_NEW_TASK, Statement.RETURN_GENERATED_KEYS);
+
+            int k = 1;
+            pstmt.setString(k++, entity.getName());
+            pstmt.setDate(k++, entity.getDeadline());
+            pstmt.setString(k++, entity.getAbout());
+            pstmt.setLong(k++, entity.getActivityType());
+            pstmt.setLong(k++, entity.getAdministratorId());
+
+            if (pstmt.executeUpdate() > 0) {
+                resultSet = pstmt.getGeneratedKeys();
+                if (resultSet.next()) {
+                    entity.setTaskId(resultSet.getLong(1));
+                }
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+    }
+
+    @Override
+    public List<Task> getAllActivitiesByRequest(Connection connection, User request) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Task getEntityById(Connection connection, long id) throws SQLException {
+        Task task = new Task();
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_GET_TASKS_BY_ID);
+
+            pstmt.setLong(1, id);
+            resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                task = mapTask(resultSet);
+            }
+        } finally {
+            close(resultSet);
+            close(pstmt);
+        }
+        return task;
+    }
+
+    @Override
+    public Task getEntityByName(Connection connection, String name) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void deleteEntity(Connection connection, long id) throws SQLException {
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = connection.prepareStatement(SQL_DELETE_TASK);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } finally {
+            close(pstmt);
+        }
+    }
+
+    @Override
+    public String getErrorInfo() {
+        return "Task";
     }
 }
