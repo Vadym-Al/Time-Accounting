@@ -10,26 +10,11 @@ import java.util.List;
 import static com.my.time.accounting.database.SQLConstance.*;
 import static com.my.time.accounting.database.managers.Utils.*;
 
-/**
- * Class that contains instructions of processing information about activities in data base
- *
- * @author Vadym Aldyk
- * @version 1.0
- */
-public class ActivityManager {
-    /**
-     * private constructor
-     * @see ActivityManager#ActivityManager()
-     */
-    private ActivityManager(){}
 
-    /**
-     * Instruction of inserting activity to database
-     * @param connection - connection with database
-     * @param activity - data base entity
-     * @throws SQLException - possible exception
-     */
-    public static void insertActivity(Connection connection, Activity activity) throws SQLException {
+public class ActivityManager implements Manager<Activity, Administrator> {
+
+    @Override
+    public void insertRaw(Connection connection, Activity entity) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
 
@@ -37,14 +22,14 @@ public class ActivityManager {
             pstmt = connection.prepareStatement(SQL_ADD_NEW_ACTIVITY_TYPE, Statement.RETURN_GENERATED_KEYS);
 
             int k = 1;
-            pstmt.setString(k++, activity.getName());
-            pstmt.setString(k++, activity.getAbout());
-            pstmt.setLong(k++, activity.getAdministratorId());
+            pstmt.setString(k++, entity.getName());
+            pstmt.setString(k++, entity.getAbout());
+            pstmt.setLong(k++, entity.getAdministratorId());
 
             if (pstmt.executeUpdate() > 0) {
                 resultSet = pstmt.getGeneratedKeys();
                 if (resultSet.next()) {
-                    activity.setActivityId(resultSet.getLong(1));
+                    entity.setActivityId(resultSet.getLong(1));
                 }
             }
         } finally {
@@ -53,14 +38,8 @@ public class ActivityManager {
         }
     }
 
-    /**
-     * Instruction of getting all activities from database for admin
-     * @param connection - connection with database
-     * @param administrator - person that take data
-     * @return list of activities for administrator
-     * @throws SQLException - possible exception
-     */
-    public static List<Activity> getAllActivitiesForAdmin(Connection connection, Administrator administrator) throws SQLException {
+    @Override
+    public List<Activity> getAllActivitiesByRequest(Connection connection, Administrator request) throws SQLException {
         List<Activity> activities = new ArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -68,7 +47,7 @@ public class ActivityManager {
         try {
             pstmt = connection.prepareStatement(SQL_GET_ACTIVITIES_BY_ADMIN);
 
-            pstmt.setLong(1, administrator.getAdminId());
+            pstmt.setLong(1, request.getAdminId());
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 activities.add(mapActivity(resultSet));
@@ -80,14 +59,8 @@ public class ActivityManager {
         return activities;
     }
 
-    /**
-     * Instruction of searching activity by his id
-     * @param connection - connection with database
-     * @param id - activity id
-     * @return activity from database
-     * @throws SQLException - possible exception
-     */
-    public static Activity searchActivityById(Connection connection, long id) throws SQLException {
+    @Override
+    public Activity getEntityById(Connection connection, long id) throws SQLException {
         Activity activity = new Activity();
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -108,14 +81,8 @@ public class ActivityManager {
         return activity;
     }
 
-    /**
-     * Instruction of searching activity by name
-     * @param connection - connection with database
-     * @param name - name of activity
-     * @return activity from database
-     * @throws SQLException - possible exception
-     */
-    public static Activity searchActivityByName(Connection connection, String name) throws SQLException {
+    @Override
+    public Activity getEntityByName(Connection connection, String name) throws SQLException {
         Activity activity = new Activity();
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
@@ -136,13 +103,8 @@ public class ActivityManager {
         return activity;
     }
 
-    /**
-     * Instruction of deleting activity from database
-     * @param connection - connection with database
-     * @param id - activity id
-     * @throws SQLException - possible exception
-     */
-    public static void deleteActivity(Connection connection, long id) throws SQLException{
+    @Override
+    public void deleteEntity(Connection connection, long id) throws SQLException {
         PreparedStatement pstmt = null;
         try {
             pstmt = connection.prepareStatement(SQL_DELETE_ACTIVITY);
@@ -151,5 +113,10 @@ public class ActivityManager {
         } finally {
             close(pstmt);
         }
+    }
+
+    @Override
+    public String getErrorInfo() {
+        return "Activity";
     }
 }
